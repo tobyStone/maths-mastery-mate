@@ -10,7 +10,7 @@ const Index = () => {
         <img 
           src="/lovable-uploads/f7fd5321-1c9f-4973-b601-4362406e69e9.png" 
           alt="Math Logo" 
-          className="w-16 h-16 object-contain animate-fadeIn"
+          className="w-24 h-24 object-contain animate-fadeIn"
         />
       </div>
       <MathQuiz />
