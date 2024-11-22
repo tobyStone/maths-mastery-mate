@@ -12,7 +12,7 @@ const generateFractionQuestion = (difficulty: number): Question => {
     return {
       id: Math.random(),
       question: `${num1}/${den1} + ${num2}/${den2}`,
-      answer: `${(num1 + num2)}/${den1}`,
+      answer: `${num1 + num2}/${den1}`,
       difficulty
     };
   } else if (difficulty <= 6) {
@@ -23,11 +23,15 @@ const generateFractionQuestion = (difficulty: number): Question => {
     num1 = Math.floor(Math.random() * maxNum) + 1;
     num2 = Math.floor(Math.random() * maxNum) + 1;
     const lcm = (den1 * den2) / gcd(den1, den2);
-    const result = (num1 * (lcm / den1) + num2 * (lcm / den2)) / lcm;
+    const newNum1 = num1 * (lcm / den1);
+    const newNum2 = num2 * (lcm / den2);
+    const resultNum = newNum1 + newNum2;
+    // Simplify the fraction
+    const gcdResult = gcd(resultNum, lcm);
     return {
       id: Math.random(),
       question: `${num1}/${den1} + ${num2}/${den2}`,
-      answer: result.toFixed(2),
+      answer: `${resultNum/gcdResult}/${lcm/gcdResult}`,
       difficulty
     };
   } else {
@@ -38,11 +42,30 @@ const generateFractionQuestion = (difficulty: number): Question => {
     num1 = Math.floor(Math.random() * (den1 - 1)) + 1;
     den2 = Math.floor(Math.random() * 5) + 2;
     num2 = Math.floor(Math.random() * (den2 - 1)) + 1;
-    const result = (whole1 + num1/den1 + whole2 + num2/den2);
+    
+    // Convert to improper fractions
+    const improperNum1 = whole1 * den1 + num1;
+    const improperNum2 = whole2 * den2 + num2;
+    
+    // Find common denominator
+    const lcm = (den1 * den2) / gcd(den1, den2);
+    const newNum1 = improperNum1 * (lcm / den1);
+    const newNum2 = improperNum2 * (lcm / den2);
+    const resultNum = newNum1 + newNum2;
+    
+    // Convert back to mixed number
+    const wholeResult = Math.floor(resultNum / lcm);
+    const remainderNum = resultNum % lcm;
+    
+    // Simplify the remainder fraction if needed
+    const gcdRemainder = gcd(remainderNum, lcm);
+    const simplifiedNum = remainderNum / gcdRemainder;
+    const simplifiedDen = lcm / gcdRemainder;
+    
     return {
       id: Math.random(),
       question: `${whole1} ${num1}/${den1} + ${whole2} ${num2}/${den2}`,
-      answer: result.toFixed(2),
+      answer: remainderNum === 0 ? `${wholeResult}` : `${wholeResult} ${simplifiedNum}/${simplifiedDen}`,
       difficulty
     };
   }
