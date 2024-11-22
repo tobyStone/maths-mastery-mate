@@ -32,7 +32,7 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
         );
       }
       // If it's an operator, only render it if it's not already handled above
-      return part === '+' ? null : <span key={index} className="mx-2">{part}</span>;
+      return part === '+' ? null : <span key={index} className="mx-2 text-3xl self-center">{part}</span>;
     });
   };
 
@@ -44,9 +44,9 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       <div className="text-left text-gray-500 mb-2">{questionNumber}.0</div>
       <div className="min-h-[100px] flex items-center justify-center text-2xl">
         {showAnswer ? (
-          <div className="text-green-600 font-semibold">{formatFraction(answer)}</div>
+          <div className="text-green-600 font-semibold flex items-center">{formatFraction(answer)}</div>
         ) : (
-          <div>{formatFraction(question)}</div>
+          <div className="flex items-center">{formatFraction(question)}</div>
         )}
       </div>
     </Card>
