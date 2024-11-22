@@ -8,7 +8,7 @@ const Index = () => {
           GCSE Maths Starter
         </h1>
         <img 
-          src="/pi-logo.png" 
+          src="/lovable-uploads/f7fd5321-1c9f-4973-b601-4362406e69e9.png" 
           alt="Math Logo" 
           className="w-16 h-16 object-contain animate-fadeIn"
         />
