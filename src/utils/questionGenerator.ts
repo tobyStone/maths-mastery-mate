@@ -9,10 +9,14 @@ const generateFractionQuestion = (difficulty: number): Question => {
     den1 = den2 = Math.floor(Math.random() * 5) + 2;
     num1 = Math.floor(Math.random() * maxNum) + 1;
     num2 = Math.floor(Math.random() * maxNum) + 1;
+    const resultNum = num1 + num2;
+    // Convert to mixed number if improper fraction
+    const whole = Math.floor(resultNum / den1);
+    const remainder = resultNum % den1;
     return {
       id: Math.random(),
       question: `${num1}/${den1} + ${num2}/${den2}`,
-      answer: `${num1 + num2}/${den1}`,
+      answer: whole > 0 ? (remainder === 0 ? `${whole}` : `${whole} ${remainder}/${den1}`) : `${resultNum}/${den1}`,
       difficulty
     };
   } else if (difficulty <= 6) {
@@ -28,10 +32,15 @@ const generateFractionQuestion = (difficulty: number): Question => {
     const resultNum = newNum1 + newNum2;
     // Simplify the fraction
     const gcdResult = gcd(resultNum, lcm);
+    const simplifiedNum = resultNum/gcdResult;
+    const simplifiedDen = lcm/gcdResult;
+    // Convert to mixed number if improper fraction
+    const whole = Math.floor(simplifiedNum / simplifiedDen);
+    const remainder = simplifiedNum % simplifiedDen;
     return {
       id: Math.random(),
       question: `${num1}/${den1} + ${num2}/${den2}`,
-      answer: `${resultNum/gcdResult}/${lcm/gcdResult}`,
+      answer: whole > 0 ? (remainder === 0 ? `${whole}` : `${whole} ${remainder}/${simplifiedDen}`) : `${simplifiedNum}/${simplifiedDen}`,
       difficulty
     };
   } else {
