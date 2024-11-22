@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import {
   Select,
@@ -13,6 +12,7 @@ import {
 import { MathTopic, Question, QuizState } from "@/types/math";
 import { generateQuestions } from "@/utils/questionGenerator";
 import { useToast } from "@/components/ui/use-toast";
+import QuestionPanel from "./QuestionPanel";
 
 const MathQuiz = () => {
   const { toast } = useToast();
@@ -25,7 +25,6 @@ const MathQuiz = () => {
     answers: [],
     completed: false,
   });
-  const [currentAnswer, setCurrentAnswer] = useState("");
 
   const startQuiz = () => {
     const newQuestions = generateQuestions(topic, difficulty[0]);
@@ -38,44 +37,13 @@ const MathQuiz = () => {
     });
   };
 
-  const checkAnswer = () => {
-    const currentQuestion = questions[quizState.currentQuestion];
-    const isCorrect = Math.abs(parseFloat(currentAnswer) - parseFloat(currentQuestion.answer)) < 0.01;
-    
-    const newAnswers = [...quizState.answers];
-    newAnswers[quizState.currentQuestion] = currentAnswer;
-    
-    const newScore = isCorrect ? quizState.score + 1 : quizState.score;
-    
-    if (quizState.currentQuestion === questions.length - 1) {
-      setQuizState({
-        ...quizState,
-        score: newScore,
-        answers: newAnswers,
-        completed: true,
-      });
-      toast({
-        title: "Quiz Completed!",
-        description: `You scored ${newScore} out of ${questions.length}!`,
-      });
-    } else {
-      setQuizState({
-        ...quizState,
-        currentQuestion: quizState.currentQuestion + 1,
-        score: newScore,
-        answers: newAnswers,
-      });
-      setCurrentAnswer("");
-    }
-  };
-
   return (
-    <div className="min-h-screen bg-white py-8">
-      <div className="container max-w-4xl mx-auto px-4">
+    <div className="min-h-screen bg-gray-50 py-8">
+      <div className="container max-w-7xl mx-auto px-4">
         <h1 className="text-5xl font-bold text-center mb-12 text-gray-800">GCSE Maths Starter</h1>
         
         {questions.length === 0 ? (
-          <Card className="p-8 shadow-lg border-0 bg-white">
+          <Card className="p-8 shadow-lg border-0 bg-white max-w-2xl mx-auto">
             <h2 className="text-3xl font-semibold mb-8 text-gray-700">Choose Your Practice</h2>
             <div className="space-y-8">
               <div>
@@ -109,57 +77,33 @@ const MathQuiz = () => {
               
               <Button 
                 onClick={startQuiz} 
-                className="w-full h-14 text-xl bg-blue-600 hover:bg-blue-700 transition-colors"
+                className="w-full h-14 text-xl bg-purple-600 hover:bg-purple-700 transition-colors"
               >
                 Start Practice
               </Button>
             </div>
           </Card>
         ) : (
-          <Card className="p-8 shadow-lg border-0 bg-white">
-            {!quizState.completed ? (
-              <>
-                <div className="mb-6 flex justify-between items-center text-lg text-gray-600">
-                  <span>Question {quizState.currentQuestion + 1} of {questions.length}</span>
-                  <span>Score: {quizState.score}</span>
-                </div>
-                
-                <div className="text-4xl font-bold mb-8 text-gray-800 py-8 border-y border-gray-100">
-                  {questions[quizState.currentQuestion].question}
-                </div>
-                
-                <div className="space-y-6">
-                  <Input
-                    type="text"
-                    value={currentAnswer}
-                    onChange={(e) => setCurrentAnswer(e.target.value)}
-                    placeholder="Enter your answer"
-                    className="text-2xl h-14 text-center"
-                  />
-                  
-                  <Button 
-                    onClick={checkAnswer} 
-                    className="w-full h-14 text-xl bg-green-600 hover:bg-green-700 transition-colors"
-                  >
-                    Submit Answer
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <div className="text-center space-y-6 py-8">
-                <h2 className="text-4xl font-bold text-gray-800">Practice Complete!</h2>
-                <p className="text-2xl text-gray-600">
-                  You scored {quizState.score} out of {questions.length}
-                </p>
-                <Button 
-                  onClick={startQuiz} 
-                  className="mt-8 h-14 text-xl px-12 bg-blue-600 hover:bg-blue-700 transition-colors"
-                >
-                  Start New Practice
-                </Button>
-              </div>
-            )}
-          </Card>
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+              {questions.map((question, index) => (
+                <QuestionPanel
+                  key={index}
+                  questionNumber={index + 1}
+                  question={question.question}
+                  answer={question.answer}
+                />
+              ))}
+            </div>
+            <div className="text-center">
+              <Button 
+                onClick={startQuiz}
+                className="h-14 text-xl px-12 bg-purple-600 hover:bg-purple-700 transition-colors"
+              >
+                New Practice
+              </Button>
+            </div>
+          </div>
         )}
       </div>
     </div>
