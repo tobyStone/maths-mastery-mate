@@ -11,19 +11,29 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
   const [showAnswer, setShowAnswer] = useState(false);
 
   const formatFraction = (text: string) => {
-    // Check if the text contains a fraction (contains '/')
-    if (text.includes('/')) {
-      const parts = text.split('/');
-      return (
-        <div className="inline-flex flex-col items-center">
-          <div className="text-center">{parts[0]}</div>
-          <div className="border-t border-current w-full text-center">
-            <div>{parts[1]}</div>
-          </div>
-        </div>
-      );
-    }
-    return text;
+    // Split the expression into parts (numbers and operators)
+    const parts = text.split(' ');
+    
+    return parts.map((part, index) => {
+      // If this part contains a fraction (has a slash)
+      if (part.includes('/')) {
+        const [numerator, denominator] = part.split('/');
+        return (
+          <span key={index} className="inline-flex items-center">
+            <div className="inline-flex flex-col items-center">
+              <div className="text-center">{numerator}</div>
+              <div className="border-t border-current w-full text-center">
+                <div>{denominator}</div>
+              </div>
+            </div>
+            {/* Add spacing and operator if not the last part */}
+            {index < parts.length - 1 && <span className="mx-2">{parts[index + 1] === '+' ? '+' : ''}</span>}
+          </span>
+        );
+      }
+      // If it's an operator, only render it if it's not already handled above
+      return part === '+' ? null : <span key={index} className="mx-2">{part}</span>;
+    });
   };
 
   return (
