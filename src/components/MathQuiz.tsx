@@ -38,9 +38,9 @@ const MathQuiz = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-[#7986CB] py-8">
       <div className="container max-w-7xl mx-auto px-4">
-        <h1 className="text-5xl font-bold text-center mb-12 text-gray-800">GCSE Maths Starter</h1>
+        <h1 className="text-5xl font-bold text-center mb-12 text-white">GCSE Maths Starter</h1>
         
         {questions.length === 0 ? (
           <Card className="p-8 shadow-lg border-0 bg-white max-w-2xl mx-auto">
