@@ -5,10 +5,10 @@ const generateFractionQuestion = (difficulty: number): Question => {
   let num1, num2, den1, den2;
 
   if (difficulty <= 3) {
-    // Same denominator
-    den1 = den2 = Math.floor(Math.random() * 5) + 2;
-    num1 = Math.floor(Math.random() * maxNum) + 1;
-    num2 = Math.floor(Math.random() * maxNum) + 1;
+    // Same denominator with proper fractions
+    den1 = den2 = Math.floor(Math.random() * 5) + 4; // Increased min denominator
+    num1 = Math.floor(Math.random() * (den1 - 1)) + 1; // Ensures num < den
+    num2 = Math.floor(Math.random() * (den1 - num1)) + 1; // Ensures sum < den when possible
     const resultNum = num1 + num2;
     // Convert to mixed number if improper fraction
     const whole = Math.floor(resultNum / den1);
@@ -20,12 +20,12 @@ const generateFractionQuestion = (difficulty: number): Question => {
       difficulty
     };
   } else if (difficulty <= 6) {
-    // Different denominators
-    den1 = Math.floor(Math.random() * 5) + 2;
-    den2 = Math.floor(Math.random() * 5) + 2;
-    while (den2 === den1) den2 = Math.floor(Math.random() * 5) + 2;
-    num1 = Math.floor(Math.random() * maxNum) + 1;
-    num2 = Math.floor(Math.random() * maxNum) + 1;
+    // Different denominators with proper fractions
+    den1 = Math.floor(Math.random() * 5) + 4; // Increased min denominator
+    den2 = Math.floor(Math.random() * 5) + 4;
+    while (den2 === den1) den2 = Math.floor(Math.random() * 5) + 4;
+    num1 = Math.floor(Math.random() * (den1 - 1)) + 1; // Ensures num < den
+    num2 = Math.floor(Math.random() * (den2 - 1)) + 1; // Ensures num < den
     const lcm = (den1 * den2) / gcd(den1, den2);
     const newNum1 = num1 * (lcm / den1);
     const newNum2 = num2 * (lcm / den2);
@@ -44,12 +44,12 @@ const generateFractionQuestion = (difficulty: number): Question => {
       difficulty
     };
   } else {
-    // Mixed numbers
-    const whole1 = Math.floor(Math.random() * 5) + 1;
-    const whole2 = Math.floor(Math.random() * 5) + 1;
-    den1 = Math.floor(Math.random() * 5) + 2;
+    // Mixed numbers with proper fractions
+    const whole1 = Math.floor(Math.random() * 3) + 1; // Reduced max whole number
+    const whole2 = Math.floor(Math.random() * 3) + 1;
+    den1 = Math.floor(Math.random() * 5) + 4; // Increased min denominator
     num1 = Math.floor(Math.random() * (den1 - 1)) + 1;
-    den2 = Math.floor(Math.random() * 5) + 2;
+    den2 = Math.floor(Math.random() * 5) + 4;
     num2 = Math.floor(Math.random() * (den2 - 1)) + 1;
     
     // Convert to improper fractions
