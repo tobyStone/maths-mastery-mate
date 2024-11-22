@@ -2,15 +2,17 @@ import MathQuiz from "@/components/MathQuiz";
 
 const Index = () => {
   return (
-    <div className="relative min-h-screen p-4">
-      <div className="text-4xl font-bold text-center mb-8 text-purple-600">
-        GCSE Maths Starter
+    <div className="relative min-h-screen bg-[#6B7AE4] p-4">
+      <div className="flex justify-between items-start px-4 py-2">
+        <h1 className="text-4xl font-bold text-white">
+          GCSE Maths Starter
+        </h1>
+        <img 
+          src="/pi-logo.png" 
+          alt="Math Logo" 
+          className="w-16 h-16 object-contain animate-fadeIn"
+        />
       </div>
-      <img 
-        src="/pi-logo.png" 
-        alt="Math Logo" 
-        className="absolute top-4 right-4 w-16 h-16 object-contain animate-fadeIn"
-      />
       <MathQuiz />
     </div>
   );
