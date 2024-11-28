@@ -1,7 +1,7 @@
 import { Question } from "@/types/math";
 import { gcd, formatMixedNumber } from "./mathUtils";
 
-const generateFractionAdditionQuestion = (difficulty: number): Question => {
+export const generateFractionAdditionQuestion = (difficulty: number): Question => {
   const maxNum = Math.min(12, Math.floor(difficulty * 2));
   let num1, num2, den1, den2;
 
@@ -80,7 +80,7 @@ const generateFractionAdditionQuestion = (difficulty: number): Question => {
   }
 };
 
-const generateFractionSubtractionQuestion = (difficulty: number): Question => {
+export const generateFractionSubtractionQuestion = (difficulty: number): Question => {
   const maxNum = Math.min(12, Math.floor(difficulty * 2));
   let num1, num2, den1, den2;
 
@@ -146,7 +146,7 @@ const generateFractionSubtractionQuestion = (difficulty: number): Question => {
   }
 };
 
-const generateFractionMultiplicationQuestion = (difficulty: number): Question => {
+export const generateFractionMultiplicationQuestion = (difficulty: number): Question => {
   const maxNum = Math.min(12, Math.floor(difficulty * 2));
   let num1, num2, den1, den2;
 
@@ -196,7 +196,7 @@ const generateFractionMultiplicationQuestion = (difficulty: number): Question =>
   }
 };
 
-const generateFractionDivisionQuestion = (difficulty: number): Question => {
+export const generateFractionDivisionQuestion = (difficulty: number): Question => {
   const maxNum = Math.min(12, Math.floor(difficulty * 2));
   let num1, num2, den1, den2;
 
@@ -246,7 +246,7 @@ const generateFractionDivisionQuestion = (difficulty: number): Question => {
   }
 };
 
-const generateImproperToMixedQuestion = (difficulty: number): Question => {
+export const generateImproperToMixedQuestion = (difficulty: number): Question => {
   const den = Math.floor(Math.random() * (5 + difficulty)) + 2;
   const whole = Math.floor(Math.random() * difficulty) + 1;
   const num = (whole * den) + Math.floor(Math.random() * (den - 1)) + 1;
@@ -259,7 +259,7 @@ const generateImproperToMixedQuestion = (difficulty: number): Question => {
   };
 };
 
-const generateMixedToImproperQuestion = (difficulty: number): Question => {
+export const generateMixedToImproperQuestion = (difficulty: number): Question => {
   const den = Math.floor(Math.random() * (5 + difficulty)) + 2;
   const whole = Math.floor(Math.random() * difficulty) + 1;
   const num = Math.floor(Math.random() * (den - 1)) + 1;
