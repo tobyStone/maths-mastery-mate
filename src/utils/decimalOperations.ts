@@ -8,8 +8,8 @@ const generateDecimalQuestion = (operation: string, difficulty: number): Questio
   const maxNum = Math.pow(10, Math.min(5, difficulty));
   
   // Generate two decimal numbers with the calculated precision
-  const num1 = parseFloat((Math.random() * maxNum).toFixed(precision));
-  const num2 = parseFloat((Math.random() * maxNum).toFixed(precision));
+  let num1 = parseFloat((Math.random() * maxNum).toFixed(precision));
+  let num2 = parseFloat((Math.random() * maxNum).toFixed(precision));
   
   let result: number;
   let questionStr: string;
