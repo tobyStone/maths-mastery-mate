@@ -16,7 +16,7 @@ import QuestionPanel from "./QuestionPanel";
 
 const MathQuiz = () => {
   const { toast } = useToast();
-  const [topic, setTopic] = useState<MathTopic>("fractions");
+  const [topic, setTopic] = useState<MathTopic>("fractions_addition");
   const [difficulty, setDifficulty] = useState([5]);
   const [questions, setQuestions] = useState<Question[]>([]);
   const [quizState, setQuizState] = useState<QuizState>({
@@ -57,7 +57,13 @@ const MathQuiz = () => {
                     <SelectValue placeholder="Select a topic" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="fractions">Fractions</SelectItem>
+                    <SelectItem value="fractions_addition">Fractions Addition</SelectItem>
+                    <SelectItem value="fractions_subtraction">Fractions Subtraction</SelectItem>
+                    <SelectItem value="fractions_multiplication">Fractions Multiplication</SelectItem>
+                    <SelectItem value="fractions_division">Fractions Division</SelectItem>
+                    <SelectItem value="fractions_improper_to_mixed">Fractions Improper to Mixed</SelectItem>
+                    <SelectItem value="fractions_mixed_to_improper">Fractions Mixed to Improper</SelectItem>
+                    <SelectItem value="mixed_fractions">Mixed Fractions</SelectItem>
                     <SelectItem value="decimals">Decimals</SelectItem>
                     <SelectItem value="percentages">Percentages</SelectItem>
                     <SelectItem value="algebra">Algebra</SelectItem>

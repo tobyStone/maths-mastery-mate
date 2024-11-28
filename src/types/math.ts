@@ -1,14 +1,14 @@
 export type MathTopic = 
-  | "addition"
-  | "subtraction"
-  | "multiplication"
-  | "division"
-  | "fractions"
+  | "fractions_addition"
+  | "fractions_subtraction"
+  | "fractions_multiplication"
+  | "fractions_division"
+  | "fractions_improper_to_mixed"
+  | "fractions_mixed_to_improper"
+  | "mixed_fractions"
   | "decimals"
   | "percentages"
-  | "algebra"
-  | "geometry"
-  | "statistics";
+  | "algebra";
 
 export interface Question {
   id: number;
