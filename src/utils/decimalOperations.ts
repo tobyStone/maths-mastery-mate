@@ -17,7 +17,7 @@ const generateDecimalQuestion = (operation: string, difficulty: number): Questio
   switch (operation) {
     case "addition":
       result = num1 + num2;
-      questionStr = `${num1} + ${num2}`;
+      questionStr = `${num1.toFixed(precision)} + ${num2.toFixed(precision)}`;
       break;
     case "subtraction":
       // Ensure the result is positive by making num1 larger than num2
@@ -25,21 +25,21 @@ const generateDecimalQuestion = (operation: string, difficulty: number): Questio
         [num1, num2] = [num2, num1];
       }
       result = num1 - num2;
-      questionStr = `${num1} - ${num2}`;
+      questionStr = `${num1.toFixed(precision)} - ${num2.toFixed(precision)}`;
       break;
     case "multiplication":
       // Scale down numbers for multiplication to avoid extremely large results
       const scaledNum1 = parseFloat((num1 / 10).toFixed(precision));
       const scaledNum2 = parseFloat((num2 / 10).toFixed(precision));
       result = scaledNum1 * scaledNum2;
-      questionStr = `${scaledNum1} × ${scaledNum2}`;
+      questionStr = `${scaledNum1.toFixed(precision)} × ${scaledNum2.toFixed(precision)}`;
       break;
     case "division":
       // Ensure we don't divide by zero and keep numbers manageable
       const dividend = parseFloat((num1).toFixed(precision));
       const divisor = parseFloat(((num2 === 0 ? 1 : num2) / 10).toFixed(precision));
       result = dividend / divisor;
-      questionStr = `${dividend} ÷ ${divisor}`;
+      questionStr = `${dividend.toFixed(precision)} ÷ ${divisor.toFixed(precision)}`;
       break;
     default:
       result = 0;

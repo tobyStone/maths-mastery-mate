@@ -1,6 +1,7 @@
 import { MathTopic, Question } from "@/types/math";
 import { generateDecimalQuestions } from "./decimalOperations";
 import { generatePercentageQuestions } from "./percentageOperations";
+import { generateAlgebraQuestions } from "./algebraOperations";
 import { 
   generateFractionAdditionQuestion,
   generateFractionSubtractionQuestion,
@@ -75,6 +76,9 @@ export const generateQuestions = (topic: MathTopic, difficulty: number): Questio
         return generatePercentageQuestions("multiplication", questionDifficulty);
       case "percentages_division":
         return generatePercentageQuestions("division", questionDifficulty);
+      case "algebra":
+        questions.push(...generateAlgebraQuestions(questionDifficulty));
+        break;
       default:
         questions.push(generateFractionAdditionQuestion(questionDifficulty));
     }
