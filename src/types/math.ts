@@ -6,8 +6,14 @@ export type MathTopic =
   | "fractions_improper_to_mixed"
   | "fractions_mixed_to_improper"
   | "mixed_fractions"
-  | "decimals"
-  | "percentages"
+  | "decimals_addition"
+  | "decimals_subtraction"
+  | "decimals_multiplication"
+  | "decimals_division"
+  | "percentages_addition"
+  | "percentages_subtraction"
+  | "percentages_multiplication"
+  | "percentages_division"
   | "algebra";
 
 export interface Question {

@@ -64,8 +64,14 @@ const MathQuiz = () => {
                     <SelectItem value="fractions_improper_to_mixed">Fractions Improper to Mixed</SelectItem>
                     <SelectItem value="fractions_mixed_to_improper">Fractions Mixed to Improper</SelectItem>
                     <SelectItem value="mixed_fractions">Mixed Fractions</SelectItem>
-                    <SelectItem value="decimals">Decimals</SelectItem>
-                    <SelectItem value="percentages">Percentages</SelectItem>
+                    <SelectItem value="decimals_addition">Decimals Addition</SelectItem>
+                    <SelectItem value="decimals_subtraction">Decimals Subtraction</SelectItem>
+                    <SelectItem value="decimals_multiplication">Decimals Multiplication</SelectItem>
+                    <SelectItem value="decimals_division">Decimals Division</SelectItem>
+                    <SelectItem value="percentages_addition">Percentages Addition</SelectItem>
+                    <SelectItem value="percentages_subtraction">Percentages Subtraction</SelectItem>
+                    <SelectItem value="percentages_multiplication">Percentages Multiplication</SelectItem>
+                    <SelectItem value="percentages_division">Percentages Division</SelectItem>
                     <SelectItem value="algebra">Algebra</SelectItem>
                   </SelectContent>
                 </Select>
