@@ -16,7 +16,13 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       return (
         <>
           <div className="text-xl mb-2">{solve}</div>
-          <div className="text-2xl">{equation}</div>
+          <div className="text-2xl">
+            {equation.split('').map((char, index) => 
+              char.toLowerCase() === 'x' ? 
+                <span key={index} className="font-serif italic">{char}</span> : 
+                <span key={index}>{char}</span>
+            )}
+          </div>
         </>
       );
     }
