@@ -44,7 +44,7 @@ const generateOneStepQuestion = (difficulty: number): Question => {
   return {
     id: Math.random(),
     question: questionStr,
-    answer: result.toString(),
+    answer: `x = ${result}`,
     difficulty
   };
 };
@@ -64,7 +64,7 @@ const generateTwoStepQuestion = (difficulty: number): Question => {
   return {
     id: Math.random(),
     question: questionStr,
-    answer: result.toString(),
+    answer: `x = ${result}`,
     difficulty
   };
 };
@@ -85,7 +85,7 @@ const generateUnknownsBothSidesQuestion = (difficulty: number): Question => {
   return {
     id: Math.random(),
     question: questionStr,
-    answer: result.toString(),
+    answer: `x = ${result}`,
     difficulty
   };
 };
