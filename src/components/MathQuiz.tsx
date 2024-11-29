@@ -57,6 +57,9 @@ const MathQuiz = () => {
                     <SelectValue placeholder="Select a topic" />
                   </SelectTrigger>
                   <SelectContent>
+                    <SelectItem value="algebra_one_step">Algebra - One Step Equations</SelectItem>
+                    <SelectItem value="algebra_two_step">Algebra - Two Step Equations</SelectItem>
+                    <SelectItem value="algebra_unknowns_both_sides">Algebra - Unknowns on Both Sides</SelectItem>
                     <SelectItem value="fractions_addition">Fractions Addition</SelectItem>
                     <SelectItem value="fractions_subtraction">Fractions Subtraction</SelectItem>
                     <SelectItem value="fractions_multiplication">Fractions Multiplication</SelectItem>

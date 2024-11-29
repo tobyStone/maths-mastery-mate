@@ -14,7 +14,9 @@ export type MathTopic =
   | "percentages_subtraction"
   | "percentages_multiplication"
   | "percentages_division"
-  | "algebra";
+  | "algebra_one_step"
+  | "algebra_two_step"
+  | "algebra_unknowns_both_sides";
 
 export interface Question {
   id: number;

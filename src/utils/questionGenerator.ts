@@ -76,9 +76,10 @@ export const generateQuestions = (topic: MathTopic, difficulty: number): Questio
         return generatePercentageQuestions("multiplication", questionDifficulty);
       case "percentages_division":
         return generatePercentageQuestions("division", questionDifficulty);
-      case "algebra":
-        questions.push(...generateAlgebraQuestions(questionDifficulty));
-        break;
+      case "algebra_one_step":
+      case "algebra_two_step":
+      case "algebra_unknowns_both_sides":
+        return generateAlgebraQuestions(topic, questionDifficulty);
       default:
         questions.push(generateFractionAdditionQuestion(questionDifficulty));
     }
