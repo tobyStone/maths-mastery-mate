@@ -1,48 +1,43 @@
 import { Question } from "@/types/math";
 
 const generateOneStepQuestion = (difficulty: number): Question => {
-  // Only use decimals for difficulty > 7, with specific increments
   const useDecimals = difficulty > 7;
   const answer = useDecimals 
-    ? Math.round((Math.random() * (difficulty * 2)) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2) // 0.25 or 0.5 increments
+    ? Math.round((Math.random() * (difficulty * 2)) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2)
     : Math.floor(Math.random() * (difficulty * 2)) + 1;
   
   const constant = useDecimals
     ? Math.round((Math.random() * difficulty) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2)
     : Math.floor(Math.random() * difficulty) + 1;
 
-  const operations = ['+', '-', '×', '÷'];
-  const operation = operations[Math.floor(Math.random() * operations.length)];
+  const coefficient = Math.floor(Math.random() * 5) + 1;
+  
+  // Format types: ax + b = c, b + ax = c, c = ax + b, c = b + ax
+  const formatType = Math.floor(Math.random() * 4);
   
   let questionStr: string;
   let result: number;
   
-  switch (operation) {
-    case '+':
+  switch (formatType) {
+    case 0:
       result = answer;
-      questionStr = `Solve:\nx + ${constant} = ${answer + constant}`;
+      questionStr = `Solve:\n${coefficient}x + ${constant} = ${coefficient * answer + constant}`;
       break;
-    case '-':
+    case 1:
       result = answer;
-      const subtractFormat = Math.random() > 0.5;
-      questionStr = subtractFormat 
-        ? `Solve:\nx - ${constant} = ${answer - constant}`
-        : `Solve:\n${constant} - x = ${constant - answer}`;
+      questionStr = `Solve:\n${constant} + ${coefficient}x = ${coefficient * answer + constant}`;
       break;
-    case '×':
+    case 2:
       result = answer;
-      questionStr = `Solve:\n${constant} × x = ${answer * constant}`;
+      questionStr = `Solve:\n${coefficient * answer + constant} = ${coefficient}x + ${constant}`;
       break;
-    case '÷':
+    case 3:
       result = answer;
-      const divideFormat = Math.random() > 0.5;
-      questionStr = divideFormat
-        ? `Solve:\nx ÷ ${constant} = ${answer / constant}`
-        : `Solve:\n${constant} ÷ x = ${constant / answer}`;
+      questionStr = `Solve:\n${coefficient * answer + constant} = ${constant} + ${coefficient}x`;
       break;
     default:
       result = answer;
-      questionStr = `Solve:\nx + ${constant} = ${answer + constant}`;
+      questionStr = `Solve:\n${coefficient}x + ${constant} = ${coefficient * answer + constant}`;
   }
 
   return {
@@ -59,16 +54,11 @@ const generateTwoStepQuestion = (difficulty: number): Question => {
     ? Math.round((Math.random() * difficulty) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2)
     : Math.floor(Math.random() * difficulty) + 1;
   
-  const constant1 = useDecimals
-    ? Math.round((Math.random() * (difficulty / 2)) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2)
-    : Math.floor(Math.random() * (difficulty / 2)) + 1;
-    
-  const constant2 = useDecimals
-    ? Math.round((Math.random() * (difficulty / 2)) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2)
-    : Math.floor(Math.random() * (difficulty / 2)) + 1;
-
+  const coefficient = Math.floor(Math.random() * 5) + 1;
+  const constant = Math.floor(Math.random() * (difficulty / 2)) + 1;
+  
   const result = answer;
-  const questionStr = `Solve:\n${constant1} × x + ${constant2} = ${(answer * constant1) + constant2}`;
+  const questionStr = `Solve:\n${coefficient * answer + constant} = ${coefficient}x + ${constant}`;
 
   return {
     id: Math.random(),
@@ -84,20 +74,12 @@ const generateUnknownsBothSidesQuestion = (difficulty: number): Question => {
     ? Math.round((Math.random() * difficulty) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2)
     : Math.floor(Math.random() * difficulty) + 1;
   
-  const leftCoefficient = useDecimals
-    ? Math.round((Math.random() * (difficulty / 2)) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2)
-    : Math.floor(Math.random() * (difficulty / 2)) + 1;
-    
-  const rightCoefficient = useDecimals
-    ? Math.round((Math.random() * (difficulty / 2)) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2)
-    : Math.floor(Math.random() * (difficulty / 2)) + 1;
-    
-  const constant = useDecimals
-    ? Math.round((Math.random() * difficulty) * (difficulty > 9 ? 4 : 2)) / (difficulty > 9 ? 4 : 2)
-    : Math.floor(Math.random() * difficulty) + 1;
+  const leftCoefficient = Math.floor(Math.random() * 5) + 1;
+  const rightCoefficient = Math.floor(Math.random() * 5) + 1;
+  const constant = Math.floor(Math.random() * difficulty) + 1;
 
   const result = answer;
-  const questionStr = `Solve:\n${leftCoefficient} × x + ${constant} = ${rightCoefficient} × x + ${(leftCoefficient * answer + constant) - (rightCoefficient * answer)}`;
+  const questionStr = `Solve:\n${leftCoefficient * answer + constant} = ${rightCoefficient}x + ${constant}`;
 
   return {
     id: Math.random(),
