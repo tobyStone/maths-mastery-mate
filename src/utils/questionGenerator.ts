@@ -68,14 +68,12 @@ export const generateQuestions = (topic: MathTopic, difficulty: number): Questio
         return generateDecimalQuestions("multiplication", questionDifficulty);
       case "decimals_division":
         return generateDecimalQuestions("division", questionDifficulty);
-      case "percentages_addition":
-        return generatePercentageQuestions("addition", questionDifficulty);
-      case "percentages_subtraction":
-        return generatePercentageQuestions("subtraction", questionDifficulty);
-      case "percentages_multiplication":
-        return generatePercentageQuestions("multiplication", questionDifficulty);
-      case "percentages_division":
-        return generatePercentageQuestions("division", questionDifficulty);
+      case "percentages_increase_decrease":
+        return generatePercentageQuestions("percentages_increase_decrease", questionDifficulty);
+      case "percentages_of_amount":
+        return generatePercentageQuestions("percentages_of_amount", questionDifficulty);
+      case "percentages_reverse":
+        return generatePercentageQuestions("percentages_reverse", questionDifficulty);
       case "algebra_one_step":
       case "algebra_two_step":
       case "algebra_unknowns_both_sides":

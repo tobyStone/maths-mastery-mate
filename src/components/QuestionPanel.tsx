@@ -27,19 +27,21 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       );
     }
     
-    // Add instruction for improper and mixed fractions
+    // Add instruction for improper and mixed fractions (only in questions)
     let instruction = '';
-    if (text.includes('/') && !text.includes(' ') && !text.includes('+') && !text.includes('-') && !text.includes('×') && !text.includes('÷')) {
-      instruction = 'Turn into a mixed number';
-    } else if (text.includes(' ') && text.includes('/') && !text.includes('+') && !text.includes('-') && !text.includes('×') && !text.includes('÷')) {
-      instruction = 'Turn into an improper fraction';
+    if (!showAnswer) {
+      if (text.includes('/') && !text.includes(' ') && !text.includes('+') && !text.includes('-') && !text.includes('×') && !text.includes('÷')) {
+        instruction = 'Turn into a mixed number';
+      } else if (text.includes(' ') && text.includes('/') && !text.includes('+') && !text.includes('-') && !text.includes('×') && !text.includes('÷')) {
+        instruction = 'Turn into an improper fraction';
+      }
     }
     
     // Split the expression into parts (numbers and operators)
     const parts = text.split(' ');
     
     return (
-      <>
+      <div className="flex flex-row items-center justify-center space-x-4">
         {instruction && <div className="text-lg mb-2 text-gray-600">{instruction}</div>}
         {parts.map((part, index) => {
           // If this part contains a fraction (has a slash)
@@ -54,14 +56,22 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
                   </div>
                 </div>
                 {/* Add spacing and operator if not the last part */}
-                {index < parts.length - 1 && <span className="mx-2">{parts[index + 1] === '+' ? '+' : ''}</span>}
+                {index < parts.length - 1 && 
+                  <span className="mx-2 text-xl">
+                    {parts[index + 1] === '+' ? '+' : 
+                     parts[index + 1] === '-' ? '-' :
+                     parts[index + 1] === '×' ? '×' :
+                     parts[index + 1] === '÷' ? '÷' : ''}
+                  </span>}
               </span>
             );
           }
           // If it's an operator, only render it if it's not already handled above
-          return part === '+' ? null : <span key={index} className="mx-2">{part}</span>;
+          return part === '+' || part === '-' || part === '×' || part === '÷' ? 
+            null : 
+            <span key={index} className="mx-2">{part}</span>;
         })}
-      </>
+      </div>
     );
   };
 

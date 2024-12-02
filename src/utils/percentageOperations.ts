@@ -1,44 +1,53 @@
 import { Question } from "@/types/math";
 
-const generatePercentageQuestion = (operation: string, difficulty: number): Question => {
-  const maxPercent = Math.min(200, difficulty * 20);
+const generatePercentageIncreaseDecreaseQuestion = (difficulty: number): Question => {
+  const isIncrease = Math.random() > 0.5;
+  const baseNumber = Math.floor(Math.random() * (100 * difficulty)) + 1;
+  const percentage = Math.floor(Math.random() * (20 * difficulty)) + 1;
   
-  const num1 = Math.floor(Math.random() * maxPercent);
-  const num2 = Math.floor(Math.random() * maxPercent);
-  
-  let result: number;
-  let questionStr: string;
-  
-  switch (operation) {
-    case "addition":
-      result = num1 + num2;
-      questionStr = `${num1}% + ${num2}%`;
-      break;
-    case "subtraction":
-      result = num1 - num2;
-      questionStr = `${num1}% - ${num2}%`;
-      break;
-    case "multiplication":
-      result = (num1 * num2) / 100;
-      questionStr = `${num1}% of ${num2}%`;
-      break;
-    case "division":
-      result = (num1 / num2) * 100;
-      questionStr = `${num1}% ÷ ${num2}%`;
-      break;
-    default:
-      result = 0;
-      questionStr = "";
-  }
-  
+  const answer = isIncrease ? 
+    baseNumber * (1 + percentage/100) :
+    baseNumber * (1 - percentage/100);
+    
   return {
     id: Math.random(),
-    question: questionStr,
-    answer: `${result}%`,
+    question: `${isIncrease ? "Increase" : "Decrease"} ${baseNumber} by ${percentage}%`,
+    answer: `${Math.round(answer * 100) / 100}`,
     difficulty
   };
 };
 
-export const generatePercentageQuestions = (operation: string, difficulty: number): Question[] => {
-  return Array(20).fill(null).map(() => generatePercentageQuestion(operation, difficulty));
+const generatePercentageOfAmountQuestion = (difficulty: number): Question => {
+  const percentage = Math.floor(Math.random() * (20 * difficulty)) + 1;
+  const amount = Math.floor(Math.random() * (100 * difficulty)) + 1;
+  const answer = (percentage/100) * amount;
+  
+  return {
+    id: Math.random(),
+    question: `What is ${percentage}% of ${amount}?`,
+    answer: `${Math.round(answer * 100) / 100}`,
+    difficulty
+  };
+};
+
+const generateReversePercentageQuestion = (difficulty: number): Question => {
+  const percentage = Math.floor(Math.random() * (20 * difficulty)) + 1;
+  const finalAmount = Math.floor(Math.random() * (100 * difficulty)) + 1;
+  const originalAmount = finalAmount / (1 + percentage/100);
+  
+  return {
+    id: Math.random(),
+    question: `${finalAmount} is ${percentage}% more than what number?`,
+    answer: `${Math.round(originalAmount * 100) / 100}`,
+    difficulty
+  };
+};
+
+export const generatePercentageQuestions = (type: string, difficulty: number): Question[] => {
+  const generator = 
+    type === "percentages_increase_decrease" ? generatePercentageIncreaseDecreaseQuestion :
+    type === "percentages_of_amount" ? generatePercentageOfAmountQuestion :
+    generateReversePercentageQuestion;
+    
+  return Array(20).fill(null).map(() => generator(difficulty));
 };

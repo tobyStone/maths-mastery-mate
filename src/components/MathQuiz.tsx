@@ -71,10 +71,9 @@ const MathQuiz = () => {
                     <SelectItem value="decimals_subtraction">Decimals Subtraction</SelectItem>
                     <SelectItem value="decimals_multiplication">Decimals Multiplication</SelectItem>
                     <SelectItem value="decimals_division">Decimals Division</SelectItem>
-                    <SelectItem value="percentages_addition">Percentages Addition</SelectItem>
-                    <SelectItem value="percentages_subtraction">Percentages Subtraction</SelectItem>
-                    <SelectItem value="percentages_multiplication">Percentages Multiplication</SelectItem>
-                    <SelectItem value="percentages_division">Percentages Division</SelectItem>
+                    <SelectItem value="percentages_increase_decrease">Percentages: Increase and Decrease</SelectItem>
+                    <SelectItem value="percentages_of_amount">Percentages: of an Amount</SelectItem>
+                    <SelectItem value="percentages_reverse">Percentages: Reverse Percentages</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

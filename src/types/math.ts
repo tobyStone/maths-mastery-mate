@@ -10,10 +10,9 @@ export type MathTopic =
   | "decimals_subtraction"
   | "decimals_multiplication"
   | "decimals_division"
-  | "percentages_addition"
-  | "percentages_subtraction"
-  | "percentages_multiplication"
-  | "percentages_division"
+  | "percentages_increase_decrease"
+  | "percentages_of_amount"
+  | "percentages_reverse"
   | "algebra_one_step"
   | "algebra_two_step"
   | "algebra_unknowns_both_sides";
