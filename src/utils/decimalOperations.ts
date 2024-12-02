@@ -5,7 +5,7 @@ const generateDecimalQuestion = (operation: string, difficulty: number): Questio
   const precision = Math.min(3, Math.floor(difficulty / 3));
   
   // Generate numbers with appropriate scale for the difficulty level
-  const maxNum = Math.pow(10, Math.min(5, difficulty));
+  const maxNum = Math.pow(10, Math.min(3, difficulty));
   
   // Generate two decimal numbers with the calculated precision
   let num1 = parseFloat((Math.random() * maxNum).toFixed(precision));
@@ -46,13 +46,10 @@ const generateDecimalQuestion = (operation: string, difficulty: number): Questio
       questionStr = "";
   }
   
-  // Format the result to maintain consistent decimal places
-  const formattedResult = parseFloat(result.toFixed(precision));
-  
   return {
     id: Math.random(),
     question: questionStr,
-    answer: formattedResult.toString(),
+    answer: parseFloat(result.toFixed(precision)).toString(),
     difficulty
   };
 };

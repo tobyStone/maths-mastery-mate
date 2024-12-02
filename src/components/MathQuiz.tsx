@@ -60,6 +60,9 @@ const MathQuiz = () => {
                     <SelectItem value="algebra_one_step">Algebra - One Step Equations</SelectItem>
                     <SelectItem value="algebra_two_step">Algebra - Two Step Equations</SelectItem>
                     <SelectItem value="algebra_unknowns_both_sides">Algebra - Unknowns on Both Sides</SelectItem>
+                    <SelectItem value="algebra_factorising_monic">Algebra - Factorising Monic Quadratics</SelectItem>
+                    <SelectItem value="algebra_factorising_nonmonic">Algebra - Factorising Non-monic Quadratics</SelectItem>
+                    <SelectItem value="algebra_expanding_quadratics">Algebra - Expanding Quadratic Expressions</SelectItem>
                     <SelectItem value="fractions_addition">Fractions Addition</SelectItem>
                     <SelectItem value="fractions_subtraction">Fractions Subtraction</SelectItem>
                     <SelectItem value="fractions_multiplication">Fractions Multiplication</SelectItem>

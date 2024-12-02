@@ -15,7 +15,10 @@ export type MathTopic =
   | "percentages_reverse"
   | "algebra_one_step"
   | "algebra_two_step"
-  | "algebra_unknowns_both_sides";
+  | "algebra_unknowns_both_sides"
+  | "algebra_factorising_monic"
+  | "algebra_factorising_nonmonic"
+  | "algebra_expanding_quadratics";
 
 export interface Question {
   id: number;

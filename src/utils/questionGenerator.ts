@@ -2,6 +2,7 @@ import { MathTopic, Question } from "@/types/math";
 import { generateDecimalQuestions } from "./decimalOperations";
 import { generatePercentageQuestions } from "./percentageOperations";
 import { generateAlgebraQuestions } from "./algebraOperations";
+import { generateQuadraticQuestions } from "./quadraticOperations";
 import { 
   generateFractionAdditionQuestion,
   generateFractionSubtractionQuestion,
@@ -78,6 +79,10 @@ export const generateQuestions = (topic: MathTopic, difficulty: number): Questio
       case "algebra_two_step":
       case "algebra_unknowns_both_sides":
         return generateAlgebraQuestions(topic, questionDifficulty);
+      case "algebra_factorising_monic":
+      case "algebra_factorising_nonmonic":
+      case "algebra_expanding_quadratics":
+        return generateQuadraticQuestions(topic, questionDifficulty);
       default:
         questions.push(generateFractionAdditionQuestion(questionDifficulty));
     }
