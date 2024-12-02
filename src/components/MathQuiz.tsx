@@ -75,7 +75,6 @@ const MathQuiz = () => {
                     <SelectItem value="percentages_subtraction">Percentages Subtraction</SelectItem>
                     <SelectItem value="percentages_multiplication">Percentages Multiplication</SelectItem>
                     <SelectItem value="percentages_division">Percentages Division</SelectItem>
-                    <SelectItem value="algebra">Algebra</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
