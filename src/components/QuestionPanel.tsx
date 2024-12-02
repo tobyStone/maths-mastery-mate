@@ -37,11 +37,20 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       }
     }
     
+    // Handle percentage questions with larger font and reduced word spacing
+    if (text.includes('%')) {
+      return (
+        <div className="text-[1.3em] tracking-normal">
+          {text}
+        </div>
+      );
+    }
+    
     // Split the expression into parts (numbers and operators)
     const parts = text.split(' ');
     
     return (
-      <div className="flex flex-row items-center justify-center space-x-4">
+      <div className="flex flex-row items-center justify-center space-x-8">
         {instruction && <div className="text-lg mb-2 text-gray-600">{instruction}</div>}
         {parts.map((part, index) => {
           // If this part contains a fraction (has a slash)
@@ -57,7 +66,7 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
                 </div>
                 {/* Add spacing and operator if not the last part */}
                 {index < parts.length - 1 && 
-                  <span className="mx-2 text-xl">
+                  <span className="mx-8 text-xl">
                     {parts[index + 1] === '+' ? '+' : 
                      parts[index + 1] === '-' ? '-' :
                      parts[index + 1] === '×' ? '×' :

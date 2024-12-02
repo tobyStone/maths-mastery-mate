@@ -2,8 +2,8 @@ import { Question } from "@/types/math";
 
 const generatePercentageIncreaseDecreaseQuestion = (difficulty: number): Question => {
   const isIncrease = Math.random() > 0.5;
-  const baseNumber = Math.floor(Math.random() * (100 * difficulty)) + 1;
-  const percentage = Math.floor(Math.random() * (20 * difficulty)) + 1;
+  const baseNumber = Math.floor(Math.random() * (20 * difficulty)) + 20;
+  const percentage = Math.floor(Math.random() * (10 * difficulty)) + 10;
   
   const answer = isIncrease ? 
     baseNumber * (1 + percentage/100) :
@@ -18,8 +18,8 @@ const generatePercentageIncreaseDecreaseQuestion = (difficulty: number): Questio
 };
 
 const generatePercentageOfAmountQuestion = (difficulty: number): Question => {
-  const percentage = Math.floor(Math.random() * (20 * difficulty)) + 1;
-  const amount = Math.floor(Math.random() * (100 * difficulty)) + 1;
+  const percentage = Math.floor(Math.random() * (10 * difficulty)) + 10;
+  const amount = Math.floor(Math.random() * (20 * difficulty)) + 20;
   const answer = (percentage/100) * amount;
   
   return {
@@ -31,8 +31,8 @@ const generatePercentageOfAmountQuestion = (difficulty: number): Question => {
 };
 
 const generateReversePercentageQuestion = (difficulty: number): Question => {
-  const percentage = Math.floor(Math.random() * (20 * difficulty)) + 1;
-  const finalAmount = Math.floor(Math.random() * (100 * difficulty)) + 1;
+  const percentage = Math.floor(Math.random() * (10 * difficulty)) + 10;
+  const finalAmount = Math.floor(Math.random() * (20 * difficulty)) + 20;
   const originalAmount = finalAmount / (1 + percentage/100);
   
   return {
