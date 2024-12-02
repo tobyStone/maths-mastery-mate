@@ -60,7 +60,7 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       <div className="text-left text-gray-500 mb-2">{questionNumber}.0</div>
       <div className="min-h-[100px] flex items-center justify-center">
         {showAnswer ? (
-          <div className="text-green-600 font-semibold flex items-center">
+          <div className="text-green-600 font-semibold flex items-center text-[1.3em]">
             {formatMathExpression(answer)}
           </div>
         ) : (
