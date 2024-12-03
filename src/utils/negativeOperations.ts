@@ -2,8 +2,13 @@ import { Question } from "@/types/math";
 
 const generateNegativeQuestion = (operation: string, difficulty: number): Question => {
   const maxNum = Math.min(20, Math.floor(difficulty * 3));
-  const num1 = Math.floor(Math.random() * maxNum) - maxNum;
-  const num2 = Math.floor(Math.random() * maxNum) - maxNum;
+  // Ensure at least one negative number, with possibility of positive numbers
+  const num1 = Math.random() < 0.7 ? 
+    -(Math.floor(Math.random() * maxNum) + 1) : 
+    Math.floor(Math.random() * maxNum);
+  const num2 = Math.random() < 0.7 ? 
+    -(Math.floor(Math.random() * maxNum) + 1) : 
+    Math.floor(Math.random() * maxNum);
   
   let result: number;
   let questionStr: string;

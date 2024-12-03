@@ -9,34 +9,32 @@ const formatCoefficient = (coefficient: number) => {
 const generateOneStepQuestion = (difficulty: number): Question => {
   const operators = ["×", "÷", "+", "-"];
   const operator = operators[Math.floor(Math.random() * operators.length)];
-  const answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
   const coefficient = Math.floor(Math.random() * 4) + 2;
-  
-  let questionStr = "";
-  let result;
+  let answer: number;
+  let questionStr: string;
   
   switch(operator) {
     case "×":
-      result = answer * coefficient;
-      questionStr = `${result} = ${coefficient}x`;
+      answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
+      questionStr = `${answer * coefficient} = ${coefficient}x`;
       break;
     case "÷":
-      result = answer * coefficient;
-      questionStr = `${result} = x ÷ ${coefficient}`;
+      answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
+      // For division, if we have a = x ÷ b, then x = a × b
+      questionStr = `${answer} = x ÷ ${coefficient}`;
+      answer = answer * coefficient; // x = answer × coefficient
       break;
     case "+":
-      result = answer + coefficient;
-      questionStr = `${result} = x + ${coefficient}`;
+      answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
+      questionStr = `${answer + coefficient} = x + ${coefficient}`;
       break;
     case "-":
-      result = answer - coefficient;
-      questionStr = `${result} = x - ${coefficient}`;
+      answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
+      questionStr = `${answer - coefficient} = x - ${coefficient}`;
       break;
-  }
-
-  // Only use decimals in higher difficulty levels (8-10)
-  if (difficulty < 8) {
-    result = Math.floor(result);
+    default:
+      answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
+      questionStr = `${answer + coefficient} = x + ${coefficient}`;
   }
 
   return {
@@ -56,7 +54,7 @@ const generateTwoStepQuestion = (difficulty: number): Question => {
   ];
   const operatorPair = operators[Math.floor(Math.random() * operators.length)];
   
-  const answer = Math.floor(Math.random() * difficulty) + 1;
+  let answer = Math.floor(Math.random() * difficulty) + 1;
   const coefficient = Math.floor(Math.random() * 4) + 2;
   const constant = Math.floor(Math.random() * (difficulty / 2)) + 1;
   
@@ -102,10 +100,10 @@ const generateUnknownsBothSidesQuestion = (difficulty: number): Question => {
 
 const generateMonicFactorisingQuestion = (difficulty: number): Question => {
   const maxRoot = Math.min(6, Math.floor(difficulty * 1.5));
-  const root1 = Math.floor(Math.random() * maxRoot) - Math.floor(maxRoot/2);
+  const root1 = Math.floor(Math.random() * maxRoot) - Math.floor(maxRoot / 2);
   let root2;
   do {
-    root2 = Math.floor(Math.random() * maxRoot) - Math.floor(maxRoot/2);
+    root2 = Math.floor(Math.random() * maxRoot) - Math.floor(maxRoot / 2);
   } while (root2 === 0 || root1 === 0); // Avoid zero roots
   
   const sum = -(root1 + root2);

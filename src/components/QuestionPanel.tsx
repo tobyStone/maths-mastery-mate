@@ -11,6 +11,17 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
   const [showAnswer, setShowAnswer] = useState(false);
 
   const formatMathExpression = (text: string) => {
+    // Handle ratio questions
+    if (text.includes('Simplify the ratio')) {
+      return (
+        <div className="text-[1.3em] tracking-tight">
+          {text.split(' ').map((word, index) => (
+            <span key={index} className="mr-1">{word}</span>
+          ))}
+        </div>
+      );
+    }
+
     if (text.startsWith('Solve:')) {
       const [solve, equation] = text.split('\n');
       return (
