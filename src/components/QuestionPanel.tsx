@@ -37,8 +37,8 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       }
     }
     
-    // Handle percentage questions with larger font and reduced word spacing
-    if (text.includes('%')) {
+    // Handle percentage and decimal questions with larger font
+    if (text.includes('%') || text.includes('.')) {
       return (
         <div className="text-[1.3em] tracking-normal">
           {text}
@@ -50,14 +50,14 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
     const parts = text.split(' ');
     
     return (
-      <div className="flex flex-row items-center justify-center space-x-8">
+      <div className="flex flex-row items-center justify-center space-x-4">
         {instruction && <div className="text-lg mb-2 text-gray-600">{instruction}</div>}
         {parts.map((part, index) => {
           // If this part contains a fraction (has a slash)
           if (part.includes('/')) {
             const [numerator, denominator] = part.split('/');
             return (
-              <span key={index} className="inline-flex items-center">
+              <span key={index} className="inline-flex items-center text-[1.3em]">
                 <div className="inline-flex flex-col items-center">
                   <div className="text-center">{numerator}</div>
                   <div className="border-t border-current w-full text-center">
@@ -66,7 +66,7 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
                 </div>
                 {/* Add spacing and operator if not the last part */}
                 {index < parts.length - 1 && 
-                  <span className="mx-8 text-xl">
+                  <span className="mx-2 text-xl">
                     {parts[index + 1] === '+' ? '+' : 
                      parts[index + 1] === '-' ? '-' :
                      parts[index + 1] === '×' ? '×' :
@@ -78,7 +78,7 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
           // If it's an operator, only render it if it's not already handled above
           return part === '+' || part === '-' || part === '×' || part === '÷' ? 
             null : 
-            <span key={index} className="mx-2">{part}</span>;
+            <span key={index} className="mx-1">{part}</span>;
         })}
       </div>
     );
@@ -89,7 +89,7 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       className="p-6 cursor-pointer transition-all hover:shadow-lg border-2 border-purple-200"
       onClick={() => setShowAnswer(!showAnswer)}
     >
-      <div className="text-left text-gray-500 mb-2">{questionNumber}.0</div>
+      <div className="text-left text-gray-500 mb-2">{Math.floor(questionNumber)}</div>
       <div className="min-h-[100px] flex items-center justify-center">
         {showAnswer ? (
           <div className="text-green-600 font-semibold flex items-center text-[1.3em]">

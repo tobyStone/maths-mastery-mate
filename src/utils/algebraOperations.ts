@@ -17,21 +17,26 @@ const generateOneStepQuestion = (difficulty: number): Question => {
   
   switch(operator) {
     case "×":
-      result = coefficient * answer;
-      questionStr = `${result} = ${formatCoefficient(coefficient)}x`;
+      result = answer * coefficient;
+      questionStr = `${result} = ${coefficient}x`;
       break;
     case "÷":
-      result = answer;
-      questionStr = `${result * coefficient} = x ÷ ${coefficient}`;
+      result = answer * coefficient;
+      questionStr = `${result} = x ÷ ${coefficient}`;
       break;
     case "+":
-      result = coefficient + answer;
+      result = answer + coefficient;
       questionStr = `${result} = x + ${coefficient}`;
       break;
     case "-":
       result = answer - coefficient;
       questionStr = `${result} = x - ${coefficient}`;
       break;
+  }
+
+  // Only use decimals in higher difficulty levels
+  if (difficulty < 8) {
+    result = Math.floor(result);
   }
 
   return {

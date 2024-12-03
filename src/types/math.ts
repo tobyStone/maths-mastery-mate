@@ -18,7 +18,8 @@ export type MathTopic =
   | "algebra_unknowns_both_sides"
   | "algebra_factorising_monic"
   | "algebra_factorising_nonmonic"
-  | "algebra_expanding_quadratics";
+  | "algebra_expanding_quadratics"
+  | "conversions_fractions_decimals_percentages";
 
 export interface Question {
   id: number;

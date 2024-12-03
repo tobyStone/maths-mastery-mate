@@ -3,6 +3,7 @@ import { generateDecimalQuestions } from "./decimalOperations";
 import { generatePercentageQuestions } from "./percentageOperations";
 import { generateAlgebraQuestions } from "./algebraOperations";
 import { generateQuadraticQuestions } from "./quadraticOperations";
+import { generateConversionQuestions } from "./conversionOperations";
 import { 
   generateFractionAdditionQuestion,
   generateFractionSubtractionQuestion,
@@ -83,6 +84,8 @@ export const generateQuestions = (topic: MathTopic, difficulty: number): Questio
       case "algebra_factorising_nonmonic":
       case "algebra_expanding_quadratics":
         return generateQuadraticQuestions(topic, questionDifficulty);
+      case "conversions_fractions_decimals_percentages":
+        return generateConversionQuestions(questionDifficulty);
       default:
         questions.push(generateFractionAdditionQuestion(questionDifficulty));
     }
