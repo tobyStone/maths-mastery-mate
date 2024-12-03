@@ -34,7 +34,7 @@ const generateOneStepQuestion = (difficulty: number): Question => {
       break;
   }
 
-  // Only use decimals in higher difficulty levels
+  // Only use decimals in higher difficulty levels (8-10)
   if (difficulty < 8) {
     result = Math.floor(result);
   }
@@ -87,8 +87,10 @@ const generateUnknownsBothSidesQuestion = (difficulty: number): Question => {
   const answer = Math.floor(Math.random() * difficulty) + 1;
   const constant = Math.floor(Math.random() * (difficulty * 2)) + 1;
   
-  // Using subtraction instead of negative numbers
-  const questionStr = `${formatCoefficient(leftCoefficient)}x - ${constant} = ${formatCoefficient(rightCoefficient)}x - ${constant + (leftCoefficient - rightCoefficient) * answer}`;
+  // Convert double negatives to addition and ensure correct negative number handling
+  const leftSide = `${formatCoefficient(leftCoefficient)}x - ${constant}`;
+  const rightSide = `${formatCoefficient(rightCoefficient)}x - ${constant + (leftCoefficient - rightCoefficient) * answer}`;
+  const questionStr = `${leftSide} = ${rightSide}`;
 
   return {
     id: Math.random(),
