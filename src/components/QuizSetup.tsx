@@ -51,6 +51,14 @@ const QuizSetup = ({ topic, setTopic, difficulty, setDifficulty, startQuiz }: Qu
               <SelectItem value="percentages_of_amount">Percentages: of an Amount</SelectItem>
               <SelectItem value="percentages_reverse">Percentages: Reverse Percentages</SelectItem>
               <SelectItem value="conversions_fractions_decimals_percentages">FDP: Converting between Fractions, Decimals, and Percentages</SelectItem>
+              <SelectItem value="negative_numbers_addition">Negative Numbers: Addition</SelectItem>
+              <SelectItem value="negative_numbers_subtraction">Negative Numbers: Subtraction</SelectItem>
+              <SelectItem value="negative_numbers_multiplication">Negative Numbers: Multiplication</SelectItem>
+              <SelectItem value="negative_numbers_division">Negative Numbers: Division</SelectItem>
+              <SelectItem value="negative_numbers_mixed">Negative Numbers: Mixed Operations</SelectItem>
+              <SelectItem value="ratio_simplifying">Ratio: Simplifying</SelectItem>
+              <SelectItem value="ratio_sharing">Ratio: Sharing in a Given Ratio</SelectItem>
+              <SelectItem value="ratio_comparing">Ratio: Comparing Ratios</SelectItem>
             </SelectContent>
           </Select>
         </div>

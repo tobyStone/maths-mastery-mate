@@ -19,7 +19,15 @@ export type MathTopic =
   | "algebra_factorising_monic"
   | "algebra_factorising_nonmonic"
   | "algebra_expanding_quadratics"
-  | "conversions_fractions_decimals_percentages";
+  | "conversions_fractions_decimals_percentages"
+  | "negative_numbers_addition"
+  | "negative_numbers_subtraction"
+  | "negative_numbers_multiplication"
+  | "negative_numbers_division"
+  | "negative_numbers_mixed"
+  | "ratio_simplifying"
+  | "ratio_sharing"
+  | "ratio_comparing";
 
 export interface Question {
   id: number;
