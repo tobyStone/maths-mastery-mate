@@ -1,40 +1,57 @@
 import { Question } from "@/types/math";
 
-const generateArithmeticQuestion = (difficulty: number): Question => {
+const generateArithmeticQuestion = (type: string, difficulty: number): Question => {
   const maxNum = Math.min(1000, Math.floor(difficulty * 100));
-  const operators = ["+", "-", "×", "÷"];
-  const operator = operators[Math.floor(Math.random() * operators.length)];
+  let num1: number, num2: number, result: number, operator: string;
   
-  let num1 = Math.floor(Math.random() * maxNum) + 1;
-  let num2 = Math.floor(Math.random() * maxNum) + 1;
-  
-  // Ensure division results in whole numbers
-  if (operator === "÷") {
-    num2 = Math.floor(Math.random() * 12) + 1; // Keep divisors manageable
-    num1 = num2 * (Math.floor(Math.random() * 20) + 1); // Ensure divisible
-  }
-  
-  // For multiplication, keep numbers manageable
-  if (operator === "×") {
-    num1 = Math.floor(Math.random() * 30) + 1;
-    num2 = Math.floor(Math.random() * 30) + 1;
-  }
-  
-  let result: number;
-  switch(operator) {
-    case "+":
+  switch(type) {
+    case "arithmetic_addition":
+      num1 = Math.floor(Math.random() * maxNum) + 1;
+      num2 = Math.floor(Math.random() * maxNum) + 1;
       result = num1 + num2;
+      operator = "+";
       break;
-    case "-":
-      // Ensure positive result
-      if (num1 < num2) [num1, num2] = [num2, num1];
+      
+    case "arithmetic_subtraction":
+      num1 = Math.floor(Math.random() * maxNum) + 1;
+      num2 = Math.floor(Math.random() * num1) + 1; // Ensure positive result
       result = num1 - num2;
+      operator = "-";
       break;
-    case "×":
+      
+    case "arithmetic_multiplication":
+      num1 = Math.floor(Math.random() * 30) + 1;
+      num2 = Math.floor(Math.random() * 30) + 1;
       result = num1 * num2;
+      operator = "×";
       break;
-    default: // Division
+      
+    case "arithmetic_division":
+      num2 = Math.floor(Math.random() * 12) + 1;
+      num1 = num2 * (Math.floor(Math.random() * 20) + 1);
       result = num1 / num2;
+      operator = "÷";
+      break;
+      
+    default: // Mixed operations
+      const operators = ["+", "-", "×", "÷"];
+      operator = operators[Math.floor(Math.random() * operators.length)];
+      if (operator === "÷") {
+        num2 = Math.floor(Math.random() * 12) + 1;
+        num1 = num2 * (Math.floor(Math.random() * 20) + 1);
+        result = num1 / num2;
+      } else if (operator === "×") {
+        num1 = Math.floor(Math.random() * 30) + 1;
+        num2 = Math.floor(Math.random() * 30) + 1;
+        result = num1 * num2;
+      } else {
+        num1 = Math.floor(Math.random() * maxNum) + 1;
+        num2 = Math.floor(Math.random() * maxNum) + 1;
+        if (operator === "-" && num2 > num1) {
+          [num1, num2] = [num2, num1]; // Swap to ensure positive result
+        }
+        result = operator === "+" ? num1 + num2 : num1 - num2;
+      }
   }
   
   return {
@@ -45,6 +62,6 @@ const generateArithmeticQuestion = (difficulty: number): Question => {
   };
 };
 
-export const generateArithmeticQuestions = (difficulty: number): Question[] => {
-  return Array(20).fill(null).map(() => generateArithmeticQuestion(difficulty));
+export const generateArithmeticQuestions = (type: string, difficulty: number): Question[] => {
+  return Array(16).fill(null).map(() => generateArithmeticQuestion(type, difficulty));
 };

@@ -40,6 +40,11 @@ const QuizSetup = ({ topic, setTopic, difficulty, setDifficulty, startQuiz }: Qu
               <SelectValue placeholder="Select a topic" />
             </SelectTrigger>
             <SelectContent className="transition-all duration-700">
+              <SelectItem value="arithmetic_mixed">Arithmetic: Mixed Operations</SelectItem>
+              <SelectItem value="arithmetic_addition">Arithmetic: Addition</SelectItem>
+              <SelectItem value="arithmetic_subtraction">Arithmetic: Subtraction</SelectItem>
+              <SelectItem value="arithmetic_multiplication">Arithmetic: Multiplication</SelectItem>
+              <SelectItem value="arithmetic_division">Arithmetic: Division</SelectItem>
               <SelectItem value="arithmetic_integers">Arithmetic: Integer Operations</SelectItem>
               <SelectItem value="algebra_one_step">Algebra - One Step Equations</SelectItem>
               <SelectItem value="algebra_two_step">Algebra - Two Step Equations</SelectItem>

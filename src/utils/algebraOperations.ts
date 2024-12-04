@@ -12,16 +12,18 @@ const generateOneStepQuestion = (difficulty: number): Question => {
   const coefficient = Math.floor(Math.random() * 4) + 2;
   let answer: number;
   let questionStr: string;
-  
+
   switch(operator) {
+    case "÷":
+      do {
+        answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
+      } while (isRecurringDecimal(answer * coefficient));
+      questionStr = `${answer} = x ÷ ${coefficient}`;
+      answer = answer * coefficient;
+      break;
     case "×":
       answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
       questionStr = `${answer * coefficient} = ${coefficient}x`;
-      break;
-    case "÷":
-      answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
-      questionStr = `${answer} = x ÷ ${coefficient}`;
-      answer = answer * coefficient; // x = answer × coefficient
       break;
     case "+":
       answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
@@ -38,10 +40,21 @@ const generateOneStepQuestion = (difficulty: number): Question => {
 
   return {
     id: Math.random(),
-    question: `Solve:\n${questionStr}`,
+    question: operator === "÷" ? 
+      `Solve:\n${answer} = ${coefficient}x` :
+      `Solve:\n${questionStr}`,
     answer: `x = ${answer}`,
     difficulty
   };
+};
+
+// Helper function to check for recurring decimals
+const isRecurringDecimal = (num: number): boolean => {
+  const str = num.toString();
+  if (!str.includes('.')) return false;
+  const decimal = str.split('.')[1];
+  if (decimal.length > 8) return true; // Likely recurring if more than 8 decimal places
+  return false;
 };
 
 const generateTwoStepQuestion = (difficulty: number): Question => {
@@ -132,31 +145,44 @@ const generateNonMonicFactorisingQuestion = (difficulty: number): Question => {
   return {
     id: Math.random(),
     question: `Solve:\n${a}x² ${sum >= 0 ? '+' : ''}${sum}x ${product >= 0 ? '+' : ''}${product} = 0`,
-    answer: `x = ${root1}, x = ${root2}`,
+    answer: `${a}(x ${root1 >= 0 ? '-' : '+'}${Math.abs(root1)})(x ${root2 >= 0 ? '-' : '+'}${Math.abs(root2)})`,
     difficulty
   };
 };
 
 const generateExpandingQuestion = (difficulty: number): Question => {
   const maxNum = Math.min(5, Math.floor(difficulty * 1.2));
-  const a = difficulty > 5 ? Math.floor(Math.random() * 3) + 2 : 1; // coefficient of x
-  let b, c, d;
-  do {
-    b = Math.floor(Math.random() * maxNum) + 1;
-    c = Math.floor(Math.random() * maxNum) + 1;
-    d = Math.floor(Math.random() * maxNum) + 1;
-  } while (b === 0 || c === 0 || d === 0); // Avoid zero coefficients
+  const useNegatives = difficulty > 7; // Only use negative coefficients at higher difficulties
   
-  const expanded = {
-    x2: a * c,
-    x: a * d + b * c,
-    constant: b * d
+  const generateTerm = (maxCoeff: number) => {
+    const coeff = Math.floor(Math.random() * maxCoeff) + 1;
+    const isNegative = useNegatives && Math.random() > 0.5;
+    return {
+      coefficient: isNegative ? -coeff : coeff,
+      constant: Math.floor(Math.random() * maxNum) * (Math.random() > 0.5 ? 1 : -1)
+    };
   };
-  
+
+  const term1 = generateTerm(3);
+  const term2 = generateTerm(3);
+
+  const formatTerm = (term: { coefficient: number, constant: number }) => {
+    const coeffStr = Math.abs(term.coefficient) === 1 ? '' : Math.abs(term.coefficient).toString();
+    return `${term.coefficient >= 0 ? '+' : '-'}${coeffStr}x ${term.constant >= 0 ? '+' : '-'} ${Math.abs(term.constant)}`;
+  };
+
+  const expanded = {
+    x2: term1.coefficient * term2.coefficient,
+    x: term1.coefficient * term2.constant + term2.coefficient * term1.constant,
+    constant: term1.constant * term2.constant
+  };
+
+  const x2Coeff = expanded.x2 === 1 ? '' : expanded.x2.toString();
+
   return {
     id: Math.random(),
-    question: `Expand:\n(${a === 1 ? '' : a}x ${b >= 0 ? '+' : ''}${b})(${c === 1 ? '' : c}x ${d >= 0 ? '+' : ''}${d})`,
-    answer: `${expanded.x2}x² ${expanded.x >= 0 ? '+' : ''}${expanded.x}x ${expanded.constant >= 0 ? '+' : ''}${expanded.constant}`,
+    question: `Expand:\n(${formatTerm(term1)})(${formatTerm(term2)})`,
+    answer: `${x2Coeff}x² ${expanded.x >= 0 ? '+' : ''}${expanded.x}x ${expanded.constant >= 0 ? '+' : ''}${expanded.constant}`,
     difficulty
   };
 };
@@ -171,6 +197,11 @@ export const generateAlgebraQuestions = (type: string, minDifficulty: number, ma
                    
   return Array(16).fill(null).map((_, index) => {
     const difficulty = minDifficulty + (index * ((maxDifficulty - minDifficulty) / 15));
-    return generator(Math.round(difficulty));
+    const question = generator(Math.round(difficulty));
+    // Filter out recurring decimals
+    if (isRecurringDecimal(parseFloat(question.answer.split('=')[1]))) {
+      return generator(Math.round(difficulty)); // Generate a new question
+    }
+    return question;
   });
 };

@@ -1,4 +1,9 @@
 export type MathTopic = 
+  | "arithmetic_mixed"
+  | "arithmetic_addition"
+  | "arithmetic_subtraction"
+  | "arithmetic_multiplication"
+  | "arithmetic_division"
   | "arithmetic_integers"
   | "algebra_one_step"
   | "algebra_two_step"
