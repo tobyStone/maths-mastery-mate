@@ -101,12 +101,10 @@ const generateUnknownsBothSidesQuestion = (difficulty: number): Question => {
   const rightSide = `${formatCoefficient(rightCoefficient)}x - ${constant + (leftCoefficient - rightCoefficient) * answer}`;
   const questionStr = `${leftSide} = ${rightSide}`;
 
-  const finalAnswer = (constant + (leftCoefficient - rightCoefficient) * answer - constant) / (leftCoefficient - rightCoefficient);
-
   return {
     id: Math.random(),
     question: `Solve:\n${questionStr}`,
-    answer: `x = ${finalAnswer}`,
+    answer: `x = ${answer}`,
     difficulty
   };
 };
@@ -122,9 +120,11 @@ const generateMonicFactorisingQuestion = (difficulty: number): Question => {
   const sum = -(root1 + root2);
   const product = root1 * root2;
   
+  const questionStr = `x² ${sum !== 0 ? (sum > 0 ? '+' : '') + sum + 'x' : ''} ${product >= 0 ? '+' : ''}${product} = 0`;
+  
   return {
     id: Math.random(),
-    question: `Solve:\nx² ${sum >= 0 ? '+' : ''}${sum}x ${product >= 0 ? '+' : ''}${product} = 0`,
+    question: `Solve:\n${questionStr}`,
     answer: `x = ${root1}, x = ${root2}`,
     difficulty
   };
@@ -142,47 +142,12 @@ const generateNonMonicFactorisingQuestion = (difficulty: number): Question => {
   const sum = -(root1 + root2) * a;
   const product = root1 * root2 * a;
   
-  return {
-    id: Math.random(),
-    question: `Solve:\n${a}x² ${sum >= 0 ? '+' : ''}${sum}x ${product >= 0 ? '+' : ''}${product} = 0`,
-    answer: `${a}(x ${root1 >= 0 ? '-' : '+'}${Math.abs(root1)})(x ${root2 >= 0 ? '-' : '+'}${Math.abs(root2)})`,
-    difficulty
-  };
-};
-
-const generateExpandingQuestion = (difficulty: number): Question => {
-  const maxNum = Math.min(5, Math.floor(difficulty * 1.2));
-  const useNegatives = difficulty > 7; // Only use negative coefficients at higher difficulties
+  const questionStr = `${a}x² ${sum !== 0 ? (sum > 0 ? '+' : '') + sum + 'x' : ''} ${product >= 0 ? '+' : ''}${product} = 0`;
   
-  const generateTerm = (maxCoeff: number) => {
-    const coeff = Math.floor(Math.random() * maxCoeff) + 1;
-    const isNegative = useNegatives && Math.random() > 0.5;
-    return {
-      coefficient: isNegative ? -coeff : coeff,
-      constant: Math.floor(Math.random() * maxNum) * (Math.random() > 0.5 ? 1 : -1)
-    };
-  };
-
-  const term1 = generateTerm(3);
-  const term2 = generateTerm(3);
-
-  const formatTerm = (term: { coefficient: number, constant: number }) => {
-    const coeffStr = Math.abs(term.coefficient) === 1 ? '' : Math.abs(term.coefficient).toString();
-    return `${term.coefficient >= 0 ? '+' : '-'}${coeffStr}x ${term.constant >= 0 ? '+' : '-'} ${Math.abs(term.constant)}`;
-  };
-
-  const expanded = {
-    x2: term1.coefficient * term2.coefficient,
-    x: term1.coefficient * term2.constant + term2.coefficient * term1.constant,
-    constant: term1.constant * term2.constant
-  };
-
-  const x2Coeff = expanded.x2 === 1 ? '' : expanded.x2.toString();
-
   return {
     id: Math.random(),
-    question: `Expand:\n(${formatTerm(term1)})(${formatTerm(term2)})`,
-    answer: `${x2Coeff}x² ${expanded.x >= 0 ? '+' : ''}${expanded.x}x ${expanded.constant >= 0 ? '+' : ''}${expanded.constant}`,
+    question: `Solve:\n${questionStr}`,
+    answer: `${a}(x ${root1 >= 0 ? '-' : '+'}${Math.abs(root1)})(x ${root2 >= 0 ? '-' : '+'}${Math.abs(root2)})`,
     difficulty
   };
 };

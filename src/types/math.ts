@@ -4,7 +4,6 @@ export type MathTopic =
   | "arithmetic_subtraction"
   | "arithmetic_multiplication"
   | "arithmetic_division"
-  | "arithmetic_integers"
   | "algebra_one_step"
   | "algebra_two_step"
   | "algebra_unknowns_both_sides"

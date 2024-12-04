@@ -45,7 +45,6 @@ const QuizSetup = ({ topic, setTopic, difficulty, setDifficulty, startQuiz }: Qu
               <SelectItem value="arithmetic_subtraction">Arithmetic: Subtraction</SelectItem>
               <SelectItem value="arithmetic_multiplication">Arithmetic: Multiplication</SelectItem>
               <SelectItem value="arithmetic_division">Arithmetic: Division</SelectItem>
-              <SelectItem value="arithmetic_integers">Arithmetic: Integer Operations</SelectItem>
               <SelectItem value="algebra_one_step">Algebra - One Step Equations</SelectItem>
               <SelectItem value="algebra_two_step">Algebra - Two Step Equations</SelectItem>
               <SelectItem value="algebra_unknowns_both_sides">Algebra - Unknowns on Both Sides</SelectItem>

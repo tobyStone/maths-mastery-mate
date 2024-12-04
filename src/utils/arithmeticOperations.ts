@@ -28,7 +28,7 @@ const generateArithmeticQuestion = (type: string, difficulty: number): Question 
       
     case "arithmetic_division":
       num2 = Math.floor(Math.random() * 12) + 1;
-      num1 = num2 * (Math.floor(Math.random() * 20) + 1);
+      num1 = num2 * (Math.floor(Math.random() * 20) + 1); // Ensure whole number result
       result = num1 / num2;
       operator = "÷";
       break;
@@ -62,6 +62,9 @@ const generateArithmeticQuestion = (type: string, difficulty: number): Question 
   };
 };
 
-export const generateArithmeticQuestions = (type: string, difficulty: number): Question[] => {
-  return Array(16).fill(null).map(() => generateArithmeticQuestion(type, difficulty));
+export const generateArithmeticQuestions = (type: string, minDifficulty: number, maxDifficulty: number): Question[] => {
+  return Array(16).fill(null).map((_, index) => {
+    const difficulty = minDifficulty + (index * ((maxDifficulty - minDifficulty) / 15));
+    return generateArithmeticQuestion(type, Math.round(difficulty));
+  });
 };
