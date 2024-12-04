@@ -13,11 +13,11 @@ export const generateQuestions = (topic: MathTopic, minDifficulty: number, maxDi
   }
   
   if (topic.startsWith("negative_numbers_")) {
-    return generateNegativeQuestions(topic, minDifficulty, maxDifficulty);
+    return generateNegativeQuestions(topic, Math.floor((minDifficulty + maxDifficulty) / 2));
   }
   
   if (topic.startsWith("ratio_")) {
-    return generateRatioQuestions(topic, minDifficulty, maxDifficulty);
+    return generateRatioQuestions(topic.split('_').pop() || "", Math.floor((minDifficulty + maxDifficulty) / 2));
   }
   
   if (topic.startsWith("algebra_")) {
@@ -29,15 +29,15 @@ export const generateQuestions = (topic: MathTopic, minDifficulty: number, maxDi
     case "decimals_subtraction":
     case "decimals_multiplication":
     case "decimals_division":
-      return generateDecimalQuestions(topic.split('_')[1], minDifficulty, maxDifficulty);
+      return generateDecimalQuestions(topic.split('_')[1], Math.floor((minDifficulty + maxDifficulty) / 2));
       
     case "percentages_increase_decrease":
     case "percentages_of_amount":
     case "percentages_reverse":
-      return generatePercentageQuestions(topic, minDifficulty, maxDifficulty);
+      return generatePercentageQuestions(topic, Math.floor((minDifficulty + maxDifficulty) / 2));
       
     case "conversions_fractions_decimals_percentages":
-      return generateConversionQuestions(minDifficulty, maxDifficulty);
+      return generateConversionQuestions(Math.floor((minDifficulty + maxDifficulty) / 2));
       
     default:
       return generateArithmeticQuestions("arithmetic_mixed", minDifficulty, maxDifficulty);
