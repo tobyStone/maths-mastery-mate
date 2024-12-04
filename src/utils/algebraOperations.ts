@@ -152,6 +152,27 @@ const generateNonMonicFactorisingQuestion = (difficulty: number): Question => {
   };
 };
 
+const generateExpandingQuestion = (difficulty: number): Question => {
+  const maxNum = Math.min(5, Math.floor(difficulty * 1.2));
+  const a = difficulty > 5 ? Math.floor(Math.random() * 3) + 2 : 1;
+  const b = Math.floor(Math.random() * maxNum) + 1;
+  const c = Math.floor(Math.random() * maxNum) + 1;
+  const d = Math.floor(Math.random() * maxNum) + 1;
+  
+  const expanded = {
+    x2: a * c,
+    x: a * d + b * c,
+    constant: b * d
+  };
+  
+  return {
+    id: Math.random(),
+    question: `Expand:\n(${a === 1 ? '' : a}x ${b >= 0 ? '+' : ''}${b})(${c === 1 ? '' : c}x ${d >= 0 ? '+' : ''}${d})`,
+    answer: `${expanded.x2}x² ${expanded.x >= 0 ? '+' : ''}${expanded.x}x ${expanded.constant >= 0 ? '+' : ''}${expanded.constant}`,
+    difficulty
+  };
+};
+
 export const generateAlgebraQuestions = (type: string, minDifficulty: number, maxDifficulty: number): Question[] => {
   const generator = type === "algebra_one_step" ? generateOneStepQuestion :
                    type === "algebra_two_step" ? generateTwoStepQuestion :

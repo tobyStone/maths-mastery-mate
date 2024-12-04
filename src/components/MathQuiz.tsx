@@ -8,7 +8,7 @@ import QuizSetup from "./QuizSetup";
 
 const MathQuiz = () => {
   const { toast } = useToast();
-  const [topic, setTopic] = useState<MathTopic>("arithmetic_integers");
+  const [topic, setTopic] = useState<MathTopic>("arithmetic_mixed");
   const [difficulty, setDifficulty] = useState([1, 5]); // Default range
   const [questions, setQuestions] = useState<Question[]>([]);
   const [quizState, setQuizState] = useState<QuizState>({
