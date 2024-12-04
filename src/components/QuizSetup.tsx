@@ -19,6 +19,16 @@ interface QuizSetupProps {
 }
 
 const QuizSetup = ({ topic, setTopic, difficulty, setDifficulty, startQuiz }: QuizSetupProps) => {
+  const handleLowerBoundChange = (value: number[]) => {
+    const newValue = Math.min(value[0], difficulty[1]);
+    setDifficulty([newValue, difficulty[1]]);
+  };
+
+  const handleUpperBoundChange = (value: number[]) => {
+    const newValue = Math.max(value[0], difficulty[0]);
+    setDifficulty([difficulty[0], newValue]);
+  };
+
   return (
     <Card className="p-8 shadow-lg border-0 bg-white max-w-2xl mx-auto">
       <h2 className="text-3xl font-semibold mb-8 text-gray-700">Choose Your Practice</h2>
@@ -64,18 +74,34 @@ const QuizSetup = ({ topic, setTopic, difficulty, setDifficulty, startQuiz }: Qu
           </Select>
         </div>
         
-        <div>
-          <label className="block text-xl font-medium mb-4 text-gray-600">
-            Difficulty Range: {difficulty[0]} to {difficulty[1]}
-          </label>
-          <Slider
-            value={[difficulty[0], difficulty[1]]}
-            onValueChange={setDifficulty}
-            max={10}
-            min={1}
-            step={1}
-            className="my-6"
-          />
+        <div className="space-y-6">
+          <div>
+            <label className="block text-xl font-medium mb-2 text-gray-600">
+              Lower Difficulty Bound: {difficulty[0]}
+            </label>
+            <Slider
+              value={[difficulty[0]]}
+              onValueChange={handleLowerBoundChange}
+              max={10}
+              min={1}
+              step={1}
+              className="my-4"
+            />
+          </div>
+          
+          <div>
+            <label className="block text-xl font-medium mb-2 text-gray-600">
+              Upper Difficulty Bound: {difficulty[1]}
+            </label>
+            <Slider
+              value={[difficulty[1]]}
+              onValueChange={handleUpperBoundChange}
+              max={10}
+              min={1}
+              step={1}
+              className="my-4"
+            />
+          </div>
         </div>
         
         <Button 
