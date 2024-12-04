@@ -29,7 +29,8 @@ const QuizSetup = ({ topic, setTopic, difficulty, setDifficulty, startQuiz }: Qu
             <SelectTrigger className="w-full h-12 text-lg">
               <SelectValue placeholder="Select a topic" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="transition-all duration-300">
+              <SelectItem value="arithmetic_integers">Arithmetic: Integer Operations</SelectItem>
               <SelectItem value="algebra_one_step">Algebra - One Step Equations</SelectItem>
               <SelectItem value="algebra_two_step">Algebra - Two Step Equations</SelectItem>
               <SelectItem value="algebra_unknowns_both_sides">Algebra - Unknowns on Both Sides</SelectItem>

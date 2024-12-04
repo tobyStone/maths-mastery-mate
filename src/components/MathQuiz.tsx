@@ -33,6 +33,14 @@ const MathQuiz = () => {
     setQuestions([]);
   };
 
+  // Function to format topic name for display
+  const formatTopicName = (topic: string) => {
+    return topic
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  };
+
   return (
     <div className="min-h-screen bg-[#7986CB] py-8">
       <div className="container max-w-7xl mx-auto px-4">
@@ -48,6 +56,9 @@ const MathQuiz = () => {
           />
         ) : (
           <div>
+            <h2 className="text-2xl font-semibold text-white mb-6 text-center">
+              {formatTopicName(topic)}
+            </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
               {questions.map((question, index) => (
                 <QuestionPanel

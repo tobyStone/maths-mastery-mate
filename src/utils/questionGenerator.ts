@@ -5,6 +5,7 @@ import { generateAlgebraQuestions } from "./algebraOperations";
 import { generateConversionQuestions } from "./conversionOperations";
 import { generateNegativeQuestions } from "./negativeOperations";
 import { generateRatioQuestions } from "./ratioOperations";
+import { generateArithmeticQuestions } from "./arithmeticOperations";
 import { 
   generateFractionAdditionQuestion,
   generateFractionSubtractionQuestion,
@@ -20,6 +21,10 @@ export const generateQuestions = (topic: MathTopic, difficulty: number): Questio
   
   for (let i = 0; i < 20; i++) {
     const questionDifficulty = Math.min(10, baseComplexity + (i * 0.2));
+    
+    if (topic === "arithmetic_integers") {
+      return generateArithmeticQuestions(questionDifficulty);
+    }
     
     if (topic.startsWith("negative_numbers_")) {
       return generateNegativeQuestions(topic, questionDifficulty);

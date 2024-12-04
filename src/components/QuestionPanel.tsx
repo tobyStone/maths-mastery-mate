@@ -12,7 +12,7 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
 
   const formatMathExpression = (text: string) => {
     // Handle ratio questions
-    if (text.includes('Simplify the ratio')) {
+    if (text.includes('Are these ratios equivalent?')) {
       return (
         <div className="text-[1.3em] tracking-tight">
           {text.split(' ').map((word, index) => (
@@ -27,7 +27,7 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       return (
         <>
           <div className="text-xl mb-2">{solve}</div>
-          <div className="text-2xl">
+          <div className="text-[1.3em]">
             {equation.split('').map((char, index) => 
               char.toLowerCase() === 'x' ? 
                 <span key={index} className="font-serif italic">{char}</span> : 
@@ -38,61 +38,8 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       );
     }
     
-    // Add instruction for improper and mixed fractions (only in questions)
-    let instruction = '';
-    if (!showAnswer) {
-      if (text.includes('/') && !text.includes(' ') && !text.includes('+') && !text.includes('-') && !text.includes('×') && !text.includes('÷')) {
-        instruction = 'Turn into a mixed number';
-      } else if (text.includes(' ') && text.includes('/') && !text.includes('+') && !text.includes('-') && !text.includes('×') && !text.includes('÷')) {
-        instruction = 'Turn into an improper fraction';
-      }
-    }
-    
-    // Handle percentage and decimal questions with larger font
-    if (text.includes('%') || text.includes('.')) {
-      return (
-        <div className="text-[1.3em] tracking-normal">
-          {text}
-        </div>
-      );
-    }
-    
-    // Split the expression into parts (numbers and operators)
-    const parts = text.split(' ');
-    
-    return (
-      <div className="flex flex-row items-center justify-center space-x-4">
-        {instruction && <div className="text-lg mb-2 text-gray-600">{instruction}</div>}
-        {parts.map((part, index) => {
-          // If this part contains a fraction (has a slash)
-          if (part.includes('/')) {
-            const [numerator, denominator] = part.split('/');
-            return (
-              <span key={index} className="inline-flex items-center text-[1.3em]">
-                <div className="inline-flex flex-col items-center">
-                  <div className="text-center">{numerator}</div>
-                  <div className="border-t border-current w-full text-center">
-                    <div>{denominator}</div>
-                  </div>
-                </div>
-                {/* Add spacing and operator if not the last part */}
-                {index < parts.length - 1 && 
-                  <span className="mx-2 text-xl">
-                    {parts[index + 1] === '+' ? '+' : 
-                     parts[index + 1] === '-' ? '-' :
-                     parts[index + 1] === '×' ? '×' :
-                     parts[index + 1] === '÷' ? '÷' : ''}
-                  </span>}
-              </span>
-            );
-          }
-          // If it's an operator, only render it if it's not already handled above
-          return part === '+' || part === '-' || part === '×' || part === '÷' ? 
-            null : 
-            <span key={index} className="mx-1">{part}</span>;
-        })}
-      </div>
-    );
+    // Default case for all other questions
+    return <div className="text-[1.3em]">{text}</div>;
   };
 
   return (
@@ -103,8 +50,8 @@ const QuestionPanel = ({ questionNumber, question, answer }: QuestionPanelProps)
       <div className="text-left text-gray-500 mb-2">{Math.floor(questionNumber)}</div>
       <div className="min-h-[100px] flex items-center justify-center">
         {showAnswer ? (
-          <div className="text-green-600 font-semibold flex items-center text-[1.3em]">
-            {formatMathExpression(answer)}
+          <div className="text-green-600 font-semibold text-[1.3em]">
+            {answer}
           </div>
         ) : (
           <div className="flex items-center flex-col">
