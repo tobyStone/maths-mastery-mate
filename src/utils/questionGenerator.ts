@@ -15,93 +15,90 @@ import {
   generateMixedToImproperQuestion
 } from "./fractionOperations";
 
-export const generateQuestions = (topic: MathTopic, difficulty: number): Question[] => {
+export const generateQuestions = (topic: MathTopic, minDifficulty: number, maxDifficulty: number): Question[] => {
   const questions: Question[] = [];
-  const baseComplexity = Math.max(1, Math.min(10, difficulty));
   
-  for (let i = 0; i < 20; i++) {
-    const questionDifficulty = Math.min(10, baseComplexity + (i * 0.2));
+  // Generate 16 questions with gradually increasing difficulty
+  for (let i = 0; i < 16; i++) {
+    const questionDifficulty = minDifficulty + (i * ((maxDifficulty - minDifficulty) / 15));
+    const roundedDifficulty = Math.round(questionDifficulty);
     
     if (topic === "arithmetic_integers") {
-      return generateArithmeticQuestions(questionDifficulty);
+      return generateArithmeticQuestions(roundedDifficulty).slice(0, 16);
     }
     
     if (topic.startsWith("negative_numbers_")) {
-      return generateNegativeQuestions(topic, questionDifficulty);
+      return generateNegativeQuestions(topic, roundedDifficulty).slice(0, 16);
     }
     
     if (topic.startsWith("ratio_")) {
-      return generateRatioQuestions(topic, questionDifficulty);
+      return generateRatioQuestions(topic, roundedDifficulty).slice(0, 16);
+    }
+    
+    if (topic.startsWith("algebra_")) {
+      return generateAlgebraQuestions(topic, minDifficulty, maxDifficulty);
     }
     
     switch (topic) {
       case "fractions_addition":
-        questions.push(generateFractionAdditionQuestion(questionDifficulty));
+        questions.push(generateFractionAdditionQuestion(roundedDifficulty));
         break;
       case "fractions_subtraction":
-        questions.push(generateFractionSubtractionQuestion(questionDifficulty));
+        questions.push(generateFractionSubtractionQuestion(roundedDifficulty));
         break;
       case "fractions_multiplication":
-        questions.push(generateFractionMultiplicationQuestion(questionDifficulty));
+        questions.push(generateFractionMultiplicationQuestion(roundedDifficulty));
         break;
       case "fractions_division":
-        questions.push(generateFractionDivisionQuestion(questionDifficulty));
+        questions.push(generateFractionDivisionQuestion(roundedDifficulty));
         break;
       case "fractions_improper_to_mixed":
-        questions.push(generateImproperToMixedQuestion(questionDifficulty));
+        questions.push(generateImproperToMixedQuestion(roundedDifficulty));
         break;
       case "fractions_mixed_to_improper":
-        questions.push(generateMixedToImproperQuestion(questionDifficulty));
+        questions.push(generateMixedToImproperQuestion(roundedDifficulty));
         break;
       case "mixed_fractions":
         const randomType = Math.floor(Math.random() * 6);
         switch(randomType) {
           case 0:
-            questions.push(generateFractionAdditionQuestion(questionDifficulty));
+            questions.push(generateFractionAdditionQuestion(roundedDifficulty));
             break;
           case 1:
-            questions.push(generateFractionSubtractionQuestion(questionDifficulty));
+            questions.push(generateFractionSubtractionQuestion(roundedDifficulty));
             break;
           case 2:
-            questions.push(generateFractionMultiplicationQuestion(questionDifficulty));
+            questions.push(generateFractionMultiplicationQuestion(roundedDifficulty));
             break;
           case 3:
-            questions.push(generateFractionDivisionQuestion(questionDifficulty));
+            questions.push(generateFractionDivisionQuestion(roundedDifficulty));
             break;
           case 4:
-            questions.push(generateImproperToMixedQuestion(questionDifficulty));
+            questions.push(generateImproperToMixedQuestion(roundedDifficulty));
             break;
           case 5:
-            questions.push(generateMixedToImproperQuestion(questionDifficulty));
+            questions.push(generateMixedToImproperQuestion(roundedDifficulty));
             break;
         }
         break;
       case "decimals_addition":
-        return generateDecimalQuestions("addition", questionDifficulty);
+        return generateDecimalQuestions("addition", roundedDifficulty);
       case "decimals_subtraction":
-        return generateDecimalQuestions("subtraction", questionDifficulty);
+        return generateDecimalQuestions("subtraction", roundedDifficulty);
       case "decimals_multiplication":
-        return generateDecimalQuestions("multiplication", questionDifficulty);
+        return generateDecimalQuestions("multiplication", roundedDifficulty);
       case "decimals_division":
-        return generateDecimalQuestions("division", questionDifficulty);
+        return generateDecimalQuestions("division", roundedDifficulty);
       case "percentages_increase_decrease":
-        return generatePercentageQuestions("percentages_increase_decrease", questionDifficulty);
+        return generatePercentageQuestions("percentages_increase_decrease", roundedDifficulty);
       case "percentages_of_amount":
-        return generatePercentageQuestions("percentages_of_amount", questionDifficulty);
+        return generatePercentageQuestions("percentages_of_amount", roundedDifficulty);
       case "percentages_reverse":
-        return generatePercentageQuestions("percentages_reverse", questionDifficulty);
-      case "algebra_one_step":
-      case "algebra_two_step":
-      case "algebra_unknowns_both_sides":
-        return generateAlgebraQuestions(topic, questionDifficulty);
-      case "algebra_factorising_monic":
-      case "algebra_factorising_nonmonic":
-      case "algebra_expanding_quadratics":
-        return generateConversionQuestions(questionDifficulty);
+        return generatePercentageQuestions("percentages_reverse", roundedDifficulty);
       default:
-        questions.push(generateFractionAdditionQuestion(questionDifficulty));
+        questions.push(generateFractionAdditionQuestion(roundedDifficulty));
     }
   }
   
-  return questions;
+  return questions.slice(0, 16);
 };

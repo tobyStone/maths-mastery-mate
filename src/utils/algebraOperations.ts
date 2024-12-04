@@ -20,7 +20,6 @@ const generateOneStepQuestion = (difficulty: number): Question => {
       break;
     case "÷":
       answer = Math.floor(Math.random() * (difficulty * 2)) + 1;
-      // For division, if we have a = x ÷ b, then x = a × b
       questionStr = `${answer} = x ÷ ${coefficient}`;
       answer = answer * coefficient; // x = answer × coefficient
       break;
@@ -85,15 +84,16 @@ const generateUnknownsBothSidesQuestion = (difficulty: number): Question => {
   const answer = Math.floor(Math.random() * difficulty) + 1;
   const constant = Math.floor(Math.random() * (difficulty * 2)) + 1;
   
-  // Convert double negatives to addition and ensure correct negative number handling
-  const leftSide = `${formatCoefficient(leftCoefficient)}x - ${constant}`;
+  const leftSide = `${formatCoefficient(leftCoefficient)}x + ${constant}`;
   const rightSide = `${formatCoefficient(rightCoefficient)}x - ${constant + (leftCoefficient - rightCoefficient) * answer}`;
   const questionStr = `${leftSide} = ${rightSide}`;
+
+  const finalAnswer = (constant + (leftCoefficient - rightCoefficient) * answer - constant) / (leftCoefficient - rightCoefficient);
 
   return {
     id: Math.random(),
     question: `Solve:\n${questionStr}`,
-    answer: `x = ${answer}`,
+    answer: `x = ${finalAnswer}`,
     difficulty
   };
 };
@@ -119,7 +119,7 @@ const generateMonicFactorisingQuestion = (difficulty: number): Question => {
 
 const generateNonMonicFactorisingQuestion = (difficulty: number): Question => {
   const maxCoeff = Math.min(5, Math.floor(difficulty * 1.2));
-  const a = Math.floor(Math.random() * (maxCoeff - 1)) + 2;
+  const a = Math.floor(Math.random() * (maxCoeff - 1)) + 2; // coefficient of x²
   let root1, root2;
   do {
     root1 = Math.floor(Math.random() * 5) - 2;
@@ -139,7 +139,7 @@ const generateNonMonicFactorisingQuestion = (difficulty: number): Question => {
 
 const generateExpandingQuestion = (difficulty: number): Question => {
   const maxNum = Math.min(5, Math.floor(difficulty * 1.2));
-  const a = difficulty > 5 ? Math.floor(Math.random() * 3) + 2 : 1;
+  const a = difficulty > 5 ? Math.floor(Math.random() * 3) + 2 : 1; // coefficient of x
   let b, c, d;
   do {
     b = Math.floor(Math.random() * maxNum) + 1;
@@ -161,7 +161,7 @@ const generateExpandingQuestion = (difficulty: number): Question => {
   };
 };
 
-export const generateAlgebraQuestions = (type: string, difficulty: number): Question[] => {
+export const generateAlgebraQuestions = (type: string, minDifficulty: number, maxDifficulty: number): Question[] => {
   const generator = type === "algebra_one_step" ? generateOneStepQuestion :
                    type === "algebra_two_step" ? generateTwoStepQuestion :
                    type === "algebra_unknowns_both_sides" ? generateUnknownsBothSidesQuestion :
@@ -169,5 +169,8 @@ export const generateAlgebraQuestions = (type: string, difficulty: number): Ques
                    type === "algebra_factorising_nonmonic" ? generateNonMonicFactorisingQuestion :
                    generateExpandingQuestion;
                    
-  return Array(20).fill(null).map(() => generator(difficulty));
+  return Array(16).fill(null).map((_, index) => {
+    const difficulty = minDifficulty + (index * ((maxDifficulty - minDifficulty) / 15));
+    return generator(Math.round(difficulty));
+  });
 };

@@ -8,8 +8,8 @@ import QuizSetup from "./QuizSetup";
 
 const MathQuiz = () => {
   const { toast } = useToast();
-  const [topic, setTopic] = useState<MathTopic>("fractions_addition");
-  const [difficulty, setDifficulty] = useState([5]);
+  const [topic, setTopic] = useState<MathTopic>("arithmetic_integers");
+  const [difficulty, setDifficulty] = useState([1, 5]); // Default range
   const [questions, setQuestions] = useState<Question[]>([]);
   const [quizState, setQuizState] = useState<QuizState>({
     currentQuestion: 0,
@@ -19,8 +19,9 @@ const MathQuiz = () => {
   });
 
   const startQuiz = () => {
-    const newQuestions = generateQuestions(topic, difficulty[0]);
-    setQuestions(newQuestions);
+    const newQuestions = generateQuestions(topic, difficulty[0], difficulty[1]);
+    // Limit to 16 questions
+    setQuestions(newQuestions.slice(0, 16));
     setQuizState({
       currentQuestion: 0,
       score: 0,

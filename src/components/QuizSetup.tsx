@@ -25,11 +25,11 @@ const QuizSetup = ({ topic, setTopic, difficulty, setDifficulty, startQuiz }: Qu
       <div className="space-y-8">
         <div>
           <label className="block text-xl font-medium mb-4 text-gray-600">Select Topic</label>
-          <Select onValueChange={(value: MathTopic) => setTopic(value)}>
+          <Select onValueChange={(value: MathTopic) => setTopic(value)} value={topic}>
             <SelectTrigger className="w-full h-12 text-lg">
               <SelectValue placeholder="Select a topic" />
             </SelectTrigger>
-            <SelectContent className="transition-all duration-300">
+            <SelectContent className="transition-all duration-700">
               <SelectItem value="arithmetic_integers">Arithmetic: Integer Operations</SelectItem>
               <SelectItem value="algebra_one_step">Algebra - One Step Equations</SelectItem>
               <SelectItem value="algebra_two_step">Algebra - Two Step Equations</SelectItem>
@@ -66,10 +66,10 @@ const QuizSetup = ({ topic, setTopic, difficulty, setDifficulty, startQuiz }: Qu
         
         <div>
           <label className="block text-xl font-medium mb-4 text-gray-600">
-            Difficulty Level: {difficulty[0]}
+            Difficulty Range: {difficulty[0]} to {difficulty[1]}
           </label>
           <Slider
-            value={difficulty}
+            value={[difficulty[0], difficulty[1]]}
             onValueChange={setDifficulty}
             max={10}
             min={1}
